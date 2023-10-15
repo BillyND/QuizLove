@@ -9,7 +9,7 @@ export const postRegister = ({ email, username, password }) => {
   });
 };
 
-export const postLogin = (email, password) => {
+export const postLogin = ({ email, password }) => {
   return axios.post("auth/login", { email, password });
 };
 

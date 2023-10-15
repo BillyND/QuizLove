@@ -1,20 +1,27 @@
 import axios from "axios";
+import { createSubscription } from "../utils/globalStateHook";
 const baseURL = "https://quiz-love-be.vercel.app/";
 // const baseURL = "http://127.0.0.1:8080/";
 const NO_RETRY_HEADER = "x-no-retry";
 
-const instance = axios.create({
+let instance = axios.create({
   baseURL: baseURL + "v1/api/",
 });
 
-// Apply access_token in LS to header
-instance.defaults.headers.common = {
-  Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-};
+export const infoUserSubs = createSubscription({
+  email: "",
+  isAdmin: false,
+  username: "",
+  _id: "",
+  createdAt: "",
+  updatedAt: "",
+  accessToken: "",
+  refreshToken: "",
+});
 
 // Handle refresh Token
 const handleRefreshToken = async () => {
-  const refreshLocal = localStorage.getItem("refresh_token");
+  const refreshLocal = localStorage.getItem("refreshToken");
   const res = await instance.post("/v1/api/auth/refresh", { refreshLocal });
   if (res && res.data) {
     return res.data;
@@ -24,7 +31,10 @@ const handleRefreshToken = async () => {
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
+    // Apply accessToken in LS to header
+    instance.defaults.headers.common = {
+      Authorization: `Bearer ${infoUserSubs?.state?.accessToken}`,
+    };
     return config;
   },
   function (error) {
@@ -55,8 +65,8 @@ instance.interceptors.response.use(
 
       if (data && data.accessToken && data.refreshToken) {
         error.config.headers["Authorization"] = `Bearer ${data.accessToken}`;
-        localStorage.setItem("access_token", data.accessToken);
-        localStorage.setItem("refresh_token", data.refreshToken);
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
         return instance.request(error.config);
       } else return;
     }
@@ -66,8 +76,8 @@ instance.interceptors.response.use(
       +error.response.status === 400 &&
       error.config.url === "/v1/api/auth/refresh"
     ) {
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("access_token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
       window.location.href = "/login";
     }
 
