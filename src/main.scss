@@ -81,9 +81,10 @@
       .TopNavigation-menuItems {
         display: flex;
         white-space: nowrap;
-        color: black;
+        
 
         .item {
+          color: black;
           font-size: 14px;
           padding: 0 12px;
           font-weight: 600;
