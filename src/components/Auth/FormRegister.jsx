@@ -69,7 +69,7 @@ function FormRegister(props) {
             type="primary"
             htmlType="submit"
             block
-            style={{ height: "40px" }}
+            className="button-submit-login"
           >
             Đăng ký
           </Button>
