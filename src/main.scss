@@ -81,6 +81,7 @@
       .TopNavigation-menuItems {
         display: flex;
         white-space: nowrap;
+        color: black;
 
         .item {
           font-size: 14px;
@@ -136,6 +137,7 @@
         }
 
         .register-button {
+          color: black;
           cursor: pointer;
           background-color: none;
           border: none;
@@ -382,6 +384,60 @@
   }
 }
 
+.footer-quiz-love {
+  display: grid;
+  grid-template-columns: auto;
+
+  .footer-bottom {
+    height: 76px;
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    .bottom-left {
+      display: grid;
+      align-items: space-between;
+      gap: 4px;
+
+      .button-left-link {
+        gap: 14px;
+        display: flex;
+        align-items: center;
+
+        .IconFont {
+          width: 1rem;
+          height: 1rem;
+          font-size: 13px;
+          border-radius: 50%;
+          padding: 9px;
+          cursor: pointer;
+          color: black;
+        }
+
+        .IconFont:hover {
+          background-color: #eaeaea;
+        }
+      }
+
+      .button-left-copy-right {
+        height: fit-content;
+      }
+    }
+
+    .bottom-right {
+      display: flex;
+      justify-content: end;
+    }
+  }
+}
+
+.upgrade-plan-real{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
 // Responsive
 @media only screen and (max-width: 1024px) {
   .modal-login-register {
@@ -394,6 +450,7 @@
       overflow-y: scroll;
       height: 100vh;
       .content-login-register {
+        padding: 50px 32px;
         gap: 20px;
       }
     }

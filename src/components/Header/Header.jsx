@@ -91,18 +91,33 @@ function Header(props) {
               {/* Info user */}
               {accessToken && <PopoverInfoUser />}
 
-              <button
-                className="login-button flex-center-all"
-                onClick={() => handleOpenModalLogonRegister("login")}
-              >
-                Đăng nhập
-              </button>
-              <button
-                className="register-button flex-center-all transition-02"
-                onClick={() => handleOpenModalLogonRegister("register")}
-              >
-                Đăng ký
-              </button>
+              {!accessToken ? (
+                <>
+                  <button
+                    className="login-button flex-center-all"
+                    onClick={() => handleOpenModalLogonRegister("login")}
+                  >
+                    Đăng nhập
+                  </button>
+                  <button
+                    className="register-button flex-center-all transition-02"
+                    onClick={() => handleOpenModalLogonRegister("register")}
+                  >
+                    Đăng ký
+                  </button>
+                </>
+              ) : (
+                <button
+                  style={{
+                    width: "170px",
+                    padding: "6px 14px",
+                  }}
+                  className="register-button flex-center-all transition-02"
+                  onClick={() => handleMoveLocation("upgrade")}
+                >
+                  <span>Dùng thử miễn phí</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
