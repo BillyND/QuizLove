@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Space } from "antd";
+import { postRegister } from "../../services/api";
+import { toast } from "react-toastify";
 
 function FormRegister(props) {
   const { handleOpenModalLogonRegister } = props;
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onFinish = async (values) => {
+    setIsLoading(true);
+    try {
+      const dataRegister = {
+        email: values.username,
+        username: values.usernamePost,
+        password: values.password,
+      };
+
+      const resRegister = await postRegister(dataRegister);
+
+      if (resRegister.EC === 0) {
+        toast.success(resRegister.message);
+        handleOpenModalLogonRegister("login");
+      } else {
+        toast.error(resRegister.message);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -23,9 +48,8 @@ function FormRegister(props) {
       <div>
         <span className="label-input-account">EMAIL</span>
         <Form.Item
-          // label="Username"
           name="username"
-          rules={[{ required: true, message: "Xin hãy nhập Email!" }]}
+          rules={[{ required: true, message: "Xin hãy nhập email!" }]}
         >
           <Input
             placeholder="Nhập email..."
@@ -36,13 +60,13 @@ function FormRegister(props) {
       </div>
 
       <div>
-        <span className="label-input-account">MẬT KHẨU</span>
+        <span className="label-input-account">Tên người dùng</span>
         <Form.Item
-          name="password"
-          rules={[{ required: true, message: "Xin hãy nhập Mật khẩu!" }]}
+          name="usernamePost"
+          rules={[{ required: true, message: "Xin hãy nhập tên người dùng!" }]}
         >
-          <Input.Password
-            placeholder="Nhập mật khẩu..."
+          <Input
+            placeholder="Nhập tên người dùng..."
             className="input-login"
             style={{ marginTop: "10px" }}
           />
@@ -50,13 +74,13 @@ function FormRegister(props) {
       </div>
 
       <div>
-        <span className="label-input-account">NHẬP LẠI MẬT KHẨU</span>
+        <span className="label-input-account">Mật khẩu</span>
         <Form.Item
-          name="re-password"
-          rules={[{ required: true, message: "Xin hãy nhập Mật khẩu!" }]}
+          name="password"
+          rules={[{ required: true, message: "Xin hãy nhập mật khẩu!" }]}
         >
           <Input.Password
-            placeholder="Nhập lại mật khẩu..."
+            placeholder="Nhập mật khẩu..."
             className="input-login"
             style={{ marginTop: "10px" }}
           />
@@ -70,6 +94,7 @@ function FormRegister(props) {
             htmlType="submit"
             block
             className="button-submit-login"
+            loading={isLoading}
           >
             Đăng ký
           </Button>
