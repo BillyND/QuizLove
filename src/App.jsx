@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./components/AuthPage/Login";
-import Register from "./components/AuthPage/Register";
-import Home from "./components/Home";
 import Layout from "./Layout";
+import Auth from "./components/Auth/Auth";
+import Home from "./components/Home";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
+    <div className="">
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
       </Layout>
-      <Login />
+      <Auth />
     </div>
   );
 }

@@ -29,7 +29,7 @@ function Header(props) {
   };
 
   return (
-    <header className="TopNavigationWrapper">
+    <header className="none-copy TopNavigationWrapper">
       <div className="TopNavigation">
         <div className="TopNavigation-content">
           {/* Header left */}
