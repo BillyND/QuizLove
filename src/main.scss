@@ -223,7 +223,7 @@
 
       .form-login {
         display: grid;
-        gap:20px;
+        gap: 20px;
         .button-submit-login {
           height: 70px;
           background-color: #3ccfcf;
@@ -298,6 +298,85 @@
           color: black;
         }
       }
+    }
+  }
+}
+
+.icon-avatar-user-header {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 20px;
+  border: 1px solid gray;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hidden-user{
+  width: 0;
+}
+
+.ant-popover-inner {
+  padding: 0 !important;
+}
+
+.popover-info-user {
+  min-width: 200px;
+  .header-popover {
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .info-user {
+      display: grid;
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 155px;
+      }
+
+      .name {
+        font-weight: 500;
+      }
+
+      .email {
+        font-weight: 300;
+      }
+    }
+  }
+
+  .divider-user {
+    margin: 0;
+  }
+
+  .setting-user {
+    box-sizing: border-box !important;
+
+    .icon {
+      font-size: 20px;
+    }
+
+    .item {
+      width: 100%;
+      transition: 0.2s;
+    }
+
+    .item:hover {
+      background-color: rgba(227, 227, 227, 0.433);
+      cursor: pointer;
+    }
+
+    .user-info {
+      padding: 12px 24px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
   }
 }

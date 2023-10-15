@@ -1,9 +1,9 @@
 import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
 import { useSubscription } from "../../utils/globalStateHook";
-import { toggleAuthModalSubs } from "../Header";
 import { FormLogin } from "./FormLogin";
 import FormRegister from "./FormRegister";
+import { toggleAuthModalSubs } from "../Header/Header";
 
 function Auth(props) {
   const {

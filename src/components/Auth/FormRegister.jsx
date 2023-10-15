@@ -99,6 +99,7 @@ function FormRegister(props) {
             Đăng ký
           </Button>
           <Button
+            disabled={isLoading}
             block
             onClick={() => handleOpenModalLogonRegister("login")}
             style={{ height: "40px", marginTop: "10px" }}

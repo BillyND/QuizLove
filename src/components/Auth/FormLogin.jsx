@@ -1,9 +1,51 @@
 import { Button, Form, Input, Space } from "antd";
+import { useState } from "react";
+import { postLogin } from "../../services/api";
+import { toast } from "react-toastify";
+import { useSubscription } from "../../utils/globalStateHook";
+import { toggleAuthModalSubs } from "../Header/Header";
+import { infoUserSubs } from "../../services/customAxios";
 
 export function FormLogin(props) {
   const { handleOpenModalLogonRegister } = props;
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setState } = useSubscription(toggleAuthModalSubs);
+
+  const onFinish = async (values) => {
+    setIsLoading(true);
+    try {
+      const dataLogin = {
+        email: values?.username,
+        password: values?.password,
+      };
+
+      // Response login
+      const resLogin = await postLogin(dataLogin);
+      const accessToken = resLogin?.data?.accessToken;
+      const refreshToken = resLogin?.data?.refreshToken;
+      let infoUser = {
+        ...resLogin?.data?.infoUser,
+        accessToken,
+        refreshToken,
+      };
+
+      if (resLogin?.EC === 0 && accessToken && refreshToken) {
+        // Save data to localStorage
+        localStorage.setItem("infoUser", JSON.stringify(infoUser));
+
+        infoUserSubs.updateState(infoUser);
+        toast.success("Đăng nhập thành công!");
+
+        // Close modal login/register
+        setState({ type: "" });
+      } else if (resLogin?.message) {
+        toast.error(resLogin?.message);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -22,7 +64,6 @@ export function FormLogin(props) {
       <div>
         <span className="label-input-account">EMAIL</span>
         <Form.Item
-          // label="Username"
           name="username"
           rules={[{ required: true, message: "Xin hãy nhập Email!" }]}
         >
@@ -62,7 +103,12 @@ export function FormLogin(props) {
 
       <Form.Item>
         <Space direction="vertical" style={{ width: "100%" }}>
-          <Button className="button-submit-login" htmlType="submit" block>
+          <Button
+            className="button-submit-login"
+            htmlType="submit"
+            block
+            loading={isLoading}
+          >
             Đăng nhập
           </Button>
           <span className="warning-login">
@@ -73,9 +119,12 @@ export function FormLogin(props) {
             <span>
               Mới sử dụng Quizlet?{` `}
               <button
+                disabled={isLoading}
                 className="remove-style-button cursor-pointer"
                 type="button"
-                onClick={() => handleOpenModalLogonRegister("register")}
+                onClick={() =>
+                  !isLoading && handleOpenModalLogonRegister("register")
+                }
               >
                 Tạo tài khoản
               </button>
