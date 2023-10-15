@@ -3,6 +3,7 @@ import React from "react";
 import { useSubscription } from "../../utils/globalStateHook";
 import { toggleAuthModalSubs } from "../Header";
 import { FormLogin } from "./FormLogin";
+import FormRegister from "./FormRegister";
 
 function Auth(props) {
   const {
@@ -80,9 +81,15 @@ function Auth(props) {
             </button>
           </div>
 
-          <FormLogin
-            handleOpenModalLogonRegister={handleOpenModalLogonRegister}
-          />
+          {type === "login" ? (
+            <FormLogin
+              handleOpenModalLogonRegister={handleOpenModalLogonRegister}
+            />
+          ) : (
+            <FormRegister
+              handleOpenModalLogonRegister={handleOpenModalLogonRegister}
+            />
+          )}
         </div>
       </div>
     </div>
