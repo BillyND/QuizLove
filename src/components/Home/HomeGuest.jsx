@@ -19,7 +19,7 @@ const BannerHomeGuest = () => (
           className="cursor-pointer transition-02 remove-style-button button-register-banner"
           onClick={() => toggleAuthModalSubs.updateState({ type: "register" })}
         >
-          Đăng ký miến phí
+          Đăng ký miễn phí
         </button>
       </div>
     </div>
