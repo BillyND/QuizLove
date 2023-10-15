@@ -42,7 +42,12 @@ function Auth(props) {
 
         <h1 className="logo-footer">QuizLove</h1>
       </div>
-      <div className="content-login-register-right">
+      <div
+        className="content-login-register-right"
+        style={{
+          display: type === "login" || type === "register" ? "block" : "",
+        }}
+      >
         <div className="header-login-register">
           <button className="remove-style-button">
             <CloseOutlined

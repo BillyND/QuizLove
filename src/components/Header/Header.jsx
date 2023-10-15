@@ -1,4 +1,8 @@
-import { PlusOutlined } from "@ant-design/icons";
+import {
+  CaretDownOutlined,
+  DownOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -8,6 +12,7 @@ import {
   useSubscription,
 } from "../../utils/globalStateHook";
 import PopoverInfoUser from "./PopoverInfoUser";
+import PopoverSubjects from "./PopoverSubjects";
 
 export const toggleAuthModalSubs = createSubscription({
   type: "",
@@ -62,17 +67,38 @@ function Header(props) {
               QuizLove
             </button>
             <div className="TopNavigation-menuItems">
-              <button
-                className="item cursor-pointer remove-style-button"
-                onClick={() => handleMoveLocation("/")}
-              >
-                Trang chủ
-              </button>
               <button className="item cursor-pointer remove-style-button">
-                Chủ đề
+                <div className="text" onClick={() => handleMoveLocation("/")}>
+                  <span> Trang chủ</span>
+                  <span
+                    className="line-footer-nav"
+                    style={{
+                      opacity: locationNow?.pathname === "/" ? "1" : "",
+                    }}
+                  />
+                </div>
               </button>
+
+              <PopoverSubjects
+                locationNow={locationNow}
+                handleMoveLocation={handleMoveLocation}
+              />
+
               <button className="item cursor-pointer remove-style-button">
-                Lời giải chuyên gia
+                <div
+                  className="text"
+                  onClick={() => handleMoveLocation("/explanations")}
+                >
+                  Lời giải chuyên gia
+                  <span
+                    className="line-footer-nav"
+                    style={{
+                      opacity: locationNow?.pathname?.includes("/explanations")
+                        ? "1"
+                        : "",
+                    }}
+                  />
+                </div>
               </button>
             </div>
           </div>
