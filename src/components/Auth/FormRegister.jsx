@@ -104,7 +104,7 @@ function FormRegister(props) {
             onClick={() => handleOpenModalLogonRegister("login")}
             style={{ height: "40px", marginTop: "10px" }}
           >
-            <span style={{ fontWeight: "500" }}>
+            <span style={{ fontWeight: "500", color: "black" }}>
               Bạn đã có tài khoản rồi? Đăng nhập
             </span>
           </Button>
