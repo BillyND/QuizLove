@@ -205,9 +205,10 @@
     padding: 16px;
 
     .header-login-register {
+      position: fixed;
       display: flex;
       justify-content: end;
-      width: 100%;
+      right: 16px;
 
       .icon-close-login-register {
         font-size: 22px;
@@ -217,7 +218,7 @@
     }
 
     .content-login-register {
-      padding: 16px 32px 64px 32px;
+      padding: 64px 32px;
       display: grid;
       gap: 60px;
 
@@ -387,6 +388,14 @@
     grid-template-columns: auto;
     .content-login-register-left {
       display: none;
+    }
+
+    .content-login-register-right {
+      overflow-y: scroll;
+      height: 100vh;
+      .content-login-register {
+        gap: 20px;
+      }
     }
   }
 }
