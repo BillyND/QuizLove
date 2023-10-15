@@ -485,6 +485,62 @@
       line-height: 28px;
     }
   }
+
+  .percent-student {
+    text-align: center;
+    padding: 90px 48px;
+    span {
+      font-size: 32px;
+      line-height: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .banner-memory {
+    box-sizing: border-box;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: calc(50% - 30px) calc(50% - 30px);
+    gap: 60px;
+    max-width: 1056px;
+    margin: auto;
+
+    align-items: center;
+
+    .banner-memory-left {
+      h2 {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 40px;
+      }
+
+      p {
+        font-size: 20px;
+        line-height: 28px;
+        padding: 48px 0;
+      }
+
+      button {
+        border-radius: 8px;
+        color: #fff;
+        background-color: #4255ff;
+        width: 121px;
+        height: 64px;
+        font-weight: 600;
+      }
+
+      button:hover {
+        background-color: #3647dc;
+      }
+    }
+
+    .banner-memory-right {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+  }
 }
 
 // Responsive

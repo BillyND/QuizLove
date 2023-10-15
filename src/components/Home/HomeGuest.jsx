@@ -26,10 +26,49 @@ const BannerHomeGuest = () => (
   </div>
 );
 
+const PercentStudent = () => {
+  return (
+    <section className="percent-student" data-testid="simple-richtext-section">
+      <div className="c1e7alai ckg2r8k csfjahc">
+        <span className="center">
+          90% học sinh sử dụng Quizlet cho biết họ đã cải thiện được điểm số.
+        </span>
+      </div>
+    </section>
+  );
+};
+
+const BannerMemory = () => {
+  return (
+    <div className="banner-memory">
+      <div className="banner-memory-left">
+        <h2 className="h1oedsu4">Ghi nhớ nhanh hơn, miễn phí</h2>
+        <p className="p1b46reu">
+          Nghiên cứu cho thấy việc tự kiểm tra bằng thẻ ghi nhớ sẽ hiệu quả hơn
+          việc đọc lại ghi chú của bạn. Từ toán học, y học đến ngôn ngữ hiện
+          đại, Quizlet được học sinh sử dụng trong hơn 100 chủ đề khác nhau.
+        </p>
+        <button
+          className="remove-style-button button-register-banner cursor-pointer"
+          onClick={() => toggleAuthModalSubs.updateState({ type: "register" })}
+        >
+          Bắt đầu
+        </button>
+      </div>
+
+      <div className="banner-memory-right">
+        <img src="https://images.prismic.io/quizlet-web/MDFkMjA3YzUtMGQyNC00ZDU3LThmMDctZjljZjQ5OTg2N2M0_130dc509-6919-47bc-b27d-17f600a41b0c_intlfirstslice.png?auto=compress,format&amp;rect=0,0,1000,683&amp;w=1000&amp;h=683" />
+      </div>
+    </div>
+  );
+};
+
 function HomeGuest(props) {
   return (
     <div className="home-guest">
       <BannerHomeGuest />
+      <PercentStudent />
+      <BannerMemory />
     </div>
   );
 }
