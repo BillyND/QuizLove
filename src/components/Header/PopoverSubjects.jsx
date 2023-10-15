@@ -1,41 +1,26 @@
 import { CaretDownOutlined, RightOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import React, { useState } from "react";
-
-const listContentLeft = [
-  {
-    icon: "",
-    label: "Bài thi",
-  },
-  {
-    icon: "",
-    label: "Nghệ thuật và nhân văn",
-  },
-  {
-    icon: "",
-    label: "Ngôn ngữ",
-  },
-  {
-    icon: "",
-    label: "Toán học",
-  },
-  {
-    icon: "",
-    label: "Khoa học",
-  },
-  {
-    icon: "",
-    label: "Khoa học xã hội",
-  },
-];
+import { listContentLeft, listContentRight } from "./contans";
 
 function PopoverSubjects(props) {
   const { locationNow, handleMoveLocation } = props;
-  const [itemLeftActive, setItemLeftActive] = useState(0);
+  const [itemActive, setItemActive] = useState({
+    left: 0,
+    eight: 0,
+  });
 
   const handleMouseEnterItem = (type, index) => {
-    if (type === "left" && itemLeftActive !== index) {
-      setItemLeftActive(index);
+    if (type === "left" && itemActive?.left !== index) {
+      setItemActive({
+        right: -1,
+        left: index,
+      });
+    } else if (type === "right" && itemActive?.right !== index) {
+      setItemActive({
+        ...itemActive,
+        right: index,
+      });
     }
   };
 
@@ -63,7 +48,9 @@ function PopoverSubjects(props) {
               <div
                 onMouseEnter={() => handleMouseEnterItem("left", index)}
                 key={`${item?.label}-${index}`}
-                className={`item ${itemLeftActive === index ? "active" : ""}`}
+                className={`item ${
+                  itemActive?.left === index ? "active" : ""
+                } `}
               >
                 <span className="label">{item?.label}</span>
                 <RightOutlined />
@@ -71,7 +58,25 @@ function PopoverSubjects(props) {
             );
           })}
         </div>
-        <div className="content-right"></div>
+        <div className="content-right">
+          {listContentRight?.[itemActive?.left]?.subItems?.map(
+            (item, index) => {
+              const isLastItem =
+                listContentRight?.[itemActive?.left]?.subItems?.length ===
+                index + 1;
+
+              return (
+                <div
+                  onMouseEnter={() => handleMouseEnterItem("right", index)}
+                  key={`${item?.label}-${index}`}
+                  className={`item ${isLastItem ? "last-item" : ""}`}
+                >
+                  {item?.label}
+                </div>
+              );
+            }
+          )}
+        </div>
       </div>
     );
   };

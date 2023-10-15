@@ -1,8 +1,4 @@
-import {
-  CaretDownOutlined,
-  DownOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";

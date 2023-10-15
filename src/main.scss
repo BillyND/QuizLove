@@ -579,10 +579,11 @@
 
 .popover-subjects {
   width: 530px;
-  height: 318px;
+  height: 365px;
   border-radius: 20px;
   display: grid;
   grid-template-columns: 345px auto;
+  font-weight: 600;
 
   .content-left {
     padding: 8px 0;
@@ -599,6 +600,27 @@
       justify-content: space-between;
       height: 50px;
       padding: 0 8px;
+    }
+  }
+
+  .content-right {
+    padding: 8px 0;
+
+    .item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      padding: 0 8px;
+    }
+
+    .item:hover {
+      background-color: rgb(224, 222, 222);
+    }
+
+    .last-item {
+      color: #4255ff;
     }
   }
 }
