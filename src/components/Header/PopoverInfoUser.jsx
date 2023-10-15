@@ -1,6 +1,10 @@
-import { SettingOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  SettingOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 import { Divider, Popover } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useSubscription } from "../../utils/globalStateHook";
 import { postLogout } from "../../services/api";
 import { infoUserSubs } from "../../services/customAxios";
@@ -11,6 +15,7 @@ function PopoverInfoUser(props) {
     state: { email, username },
     setState,
   } = useSubscription(infoUserSubs);
+  const [isLoading, setIsLoading] = useState(false);
 
   const activator = (
     <div
@@ -23,7 +28,18 @@ function PopoverInfoUser(props) {
   );
 
   const handleLogout = async () => {
-    const resLogout = await postLogout();
+    if (isLoading) return;
+
+    setIsLoading(true);
+    try {
+      await postLogout();
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
+
+    // Remove data user
     localStorage.removeItem("infoUser");
     setState({
       email: "",
@@ -35,6 +51,7 @@ function PopoverInfoUser(props) {
       accessToken: "",
       refreshToken: "",
     });
+
     toast.success("Đăng xuất thành công!");
   };
 
@@ -61,10 +78,11 @@ function PopoverInfoUser(props) {
       <Divider className="divider-user" />
       <div className="setting-user">
         <button
+          disabled={isLoading}
           className="remove-style-button item user-info"
           onClick={handleLogout}
         >
-          Đăng xuất
+          Đăng xuất {isLoading && <LoadingOutlined />}
         </button>
       </div>
     </div>
