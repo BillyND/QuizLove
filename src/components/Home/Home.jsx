@@ -11,7 +11,7 @@ function Home(props) {
   } = useSubscription(infoUserSubs);
 
   return (
-    <div className="home-main none-copy">
+    <div className="home-main none-copy ">
       {accessToken ? <HomeLogged /> : <HomeGuest />}
     </div>
   );

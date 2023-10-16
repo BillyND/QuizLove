@@ -1,3 +1,5 @@
+export const windowWidth = window.innerWidth;
+
 export const listContentLeft = [
   {
     icon: "",
