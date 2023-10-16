@@ -6,7 +6,9 @@
 }
 
 .App {
-  background-color: #fff !important;
+  overflow: hidden;
+  background-color: #f6f7fb !important;
+  min-height: 160vh;
 }
 
 .flex-center-all {
@@ -237,6 +239,7 @@
     }
   }
   .content-login-register-right {
+    overflow-y: scroll;
     padding: 16px;
     display: none;
 
@@ -424,7 +427,7 @@
   grid-template-columns: auto;
 
   .footer-bottom {
-    height: 76px;
+    height: fit-content;
     padding: 32px;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -523,7 +526,7 @@
 
   .percent-student {
     text-align: center;
-    padding: 90px 48px;
+    padding: 90px 16px;
     span {
       font-size: 32px;
       line-height: 40px;
@@ -638,7 +641,6 @@
     }
 
     .content-login-register-right {
-      overflow-y: scroll;
       height: 100vh;
       .content-login-register {
         padding: 50px 32px;
@@ -679,6 +681,53 @@
 
     .banner-content {
       padding: 16px;
+    }
+
+    .percent-student {
+      padding: 90px 16px;
+      span {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    .banner-memory {
+      display: flex;
+      padding: 16px;
+      flex-direction: column-reverse;
+      flex-wrap: wrap;
+      padding-top: 0;
+
+      .banner-memory-left {
+        h2 {
+          font-size: 24px;
+        }
+
+        p {
+          font-size: 16px;
+          margin: 0;
+        }
+
+        button {
+          border-radius: 8px;
+          color: #fff;
+          background-color: #4255ff;
+          width: 121px;
+          height: 64px;
+          font-weight: 600;
+        }
+
+        button:hover {
+          background-color: #3647dc;
+        }
+      }
+
+      .banner-memory-right {
+        width: 100%;
+        img {
+          width: 100%;
+        }
+      }
     }
   }
 }

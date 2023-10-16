@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { infoUserSubs } from "../../services/customAxios";
 import { useSubscription } from "../../utils/globalStateHook";
+import "./Home.scss";
 import HomeGuest from "./HomeGuest";
 import HomeLogged from "./HomeLogged";
-import "./Home.scss";
-import { handleApplyInfoUserToSubs } from "../Header/Header";
 
 function Home(props) {
   const {
     state: { accessToken },
-  } = useSubscription(infoUserSubs, ["accessToken"]);
-
-  useEffect(() => {
-    !accessToken && handleApplyInfoUserToSubs();
-  }, []);
+  } = useSubscription(infoUserSubs);
 
   return (
     <div className="home-main none-copy">

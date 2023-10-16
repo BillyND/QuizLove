@@ -36,7 +36,7 @@ function Header(props) {
 
   useEffect(() => {
     handleApplyInfoUserToSubs();
-  }, []);
+  }, [accessToken]);
 
   const handleMoveLocation = (location) => {
     if (locationNow?.pathname === location) return;

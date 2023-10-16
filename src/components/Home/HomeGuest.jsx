@@ -28,12 +28,10 @@ const BannerHomeGuest = () => (
 
 const PercentStudent = () => {
   return (
-    <section className="percent-student" data-testid="simple-richtext-section">
-      <div className="c1e7alai ckg2r8k csfjahc">
-        <span className="center">
-          90% học sinh sử dụng Quizlet cho biết họ đã cải thiện được điểm số.
-        </span>
-      </div>
+    <section className="container percent-student">
+      <span className="center">
+        90% học sinh sử dụng Quizlet cho biết họ đã cải thiện được điểm số.
+      </span>
     </section>
   );
 };

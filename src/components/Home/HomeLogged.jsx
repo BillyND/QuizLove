@@ -22,8 +22,10 @@ const NewFeature = () => {
                 className="thumbnail"
                 style={{
                   backgroundColor: item?.backgroundColor,
+                  padding: "0 50px",
                 }}
-              ></img>
+                loading="lazy"
+              />
               <div className="description">
                 <span className="title">{item?.title}</span>
                 <span className="description-sub">{item?.description}</span>

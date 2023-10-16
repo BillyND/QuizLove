@@ -1,5 +1,9 @@
+import { createFromIconfontCN } from "@ant-design/icons";
 import React from "react";
-import { IconFont } from "../../main";
+
+export const IconFont = createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
+});
 
 function Footer(props) {
   return (

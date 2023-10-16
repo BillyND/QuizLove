@@ -7,15 +7,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UpgradePlan from "./components/UpdradePlan/UpgradePlan";
 import Explanations from "./components/Explanations/Explanations";
+import GoodbyePage from "./components/GoodbyePage/GoodbyePage";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="">
+    <div className="App">
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/goodbye" element={<GoodbyePage />} />
           <Route path="/upgrade" element={<UpgradePlan />} />
           <Route path="/explanations" element={<Explanations />} />
         </Routes>
