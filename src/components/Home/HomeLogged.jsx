@@ -3,7 +3,7 @@ import { listNewFeature } from "../../utils/constant";
 
 const NewFeature = () => {
   return (
-    <section className="new-feature">
+    <section className="new-feature container">
       <span className="new-feature-header">
         Hãy thử các tính năng cập nhật này
       </span>
@@ -12,7 +12,7 @@ const NewFeature = () => {
           return (
             <div
               key={`${item?.title}-$${index}`}
-              className="item  cursor-pointer"
+              className="item cursor-pointer"
               style={{
                 backgroundColor: item?.backgroundParent,
               }}
@@ -20,10 +20,9 @@ const NewFeature = () => {
               <img
                 src={item?.image}
                 className="thumbnail"
-                // style={{
-                //   backgroundColor: item?.backgroundColor,
-                //   backgroundImage: `url('${item?.image}')`,
-                // }}
+                style={{
+                  backgroundColor: item?.backgroundColor,
+                }}
               ></img>
               <div className="description">
                 <span className="title">{item?.title}</span>
@@ -39,7 +38,7 @@ const NewFeature = () => {
 
 function HomeLogged(props) {
   return (
-    <div className="home-logged">
+    <div className="home-logged container">
       <NewFeature />
     </div>
   );

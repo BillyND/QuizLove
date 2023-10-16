@@ -17,22 +17,17 @@
 
       .item {
         transition: 0.3s;
-        background-color: rgb(197, 197, 197);
         height: 100%;
         min-width: 395px !important;
         border-radius: 16px;
         overflow: hidden;
 
         .thumbnail {
+          transition: 0.3s;
           height: 100%;
           width: 100%;
           border-top-right-radius: 16px;
           border-top-left-radius: 16px;
-          background-position: 50%;
-          background-repeat: no-repeat;
-          background-size: contain;
-          border-top-left-radius: 1rem;
-          border-top-right-radius: 1rem;
           height: 10.5625rem;
         }
 

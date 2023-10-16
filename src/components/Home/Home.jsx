@@ -16,7 +16,7 @@ function Home(props) {
   }, []);
 
   return (
-    <div className="container home-main none-copy">
+    <div className="home-main none-copy">
       {accessToken ? <HomeLogged /> : <HomeGuest />}
     </div>
   );
