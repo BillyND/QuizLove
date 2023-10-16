@@ -3,7 +3,7 @@ import { IconFont } from "../../main";
 
 function Footer(props) {
   return (
-    <footer className="footer-quiz-love none-copy">
+    <footer className="footer-quiz-love none-copy container">
       {/* Top */}
       <div className="footer-top">top</div>
 

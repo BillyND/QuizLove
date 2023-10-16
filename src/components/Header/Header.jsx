@@ -14,6 +14,15 @@ export const toggleAuthModalSubs = createSubscription({
   type: "",
 });
 
+export const handleApplyInfoUserToSubs = () => {
+  try {
+    const infoUser = JSON.parse(localStorage.getItem("infoUser"));
+    infoUserSubs.updateState(infoUser);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 function Header(props) {
   const navigate = useNavigate();
   const locationNow = useLocation();
@@ -28,15 +37,6 @@ function Header(props) {
   useEffect(() => {
     handleApplyInfoUserToSubs();
   }, []);
-
-  const handleApplyInfoUserToSubs = () => {
-    try {
-      const infoUser = JSON.parse(localStorage.getItem("infoUser"));
-      infoUserSubs.updateState(infoUser);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleMoveLocation = (location) => {
     if (locationNow?.pathname === location) return;

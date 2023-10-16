@@ -425,7 +425,7 @@
 
   .footer-bottom {
     height: 76px;
-    padding: 32px 40px;
+    padding: 32px;
     display: grid;
     grid-template-columns: 50% 50%;
 
@@ -679,7 +679,6 @@
 
     .banner-content {
       padding: 16px;
-     
     }
   }
 }
@@ -697,8 +696,6 @@
         font-size: 24px;
         line-height: 32px;
       }
-
-   
     }
   }
 }

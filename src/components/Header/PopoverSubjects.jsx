@@ -1,7 +1,7 @@
 import { CaretDownOutlined, RightOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import React, { useState } from "react";
-import { listContentLeft, listContentRight } from "./contans";
+import { listContentLeft, listContentRight } from "../../utils/constant";
 
 function PopoverSubjects(props) {
   const { locationNow, handleMoveLocation } = props;
