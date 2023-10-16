@@ -5,22 +5,11 @@ import { listContentLeft, listContentRight } from "./contans";
 
 function PopoverSubjects(props) {
   const { locationNow, handleMoveLocation } = props;
-  const [itemActive, setItemActive] = useState({
-    left: 0,
-    eight: 0,
-  });
+  const [itemActive, setItemActive] = useState(0);
 
   const handleMouseEnterItem = (type, index) => {
-    if (type === "left" && itemActive?.left !== index) {
-      setItemActive({
-        right: -1,
-        left: index,
-      });
-    } else if (type === "right" && itemActive?.right !== index) {
-      setItemActive({
-        ...itemActive,
-        right: index,
-      });
+    if (type === "left" && itemActive !== index) {
+      setItemActive(index);
     }
   };
 
@@ -41,16 +30,14 @@ function PopoverSubjects(props) {
 
   const ContentPopoverSubjects = () => {
     return (
-      <div className="popover-subjects">
+      <div className="popover-subjects none-copy">
         <div className="content-left">
           {listContentLeft?.map((item, index) => {
             return (
               <div
                 onMouseEnter={() => handleMouseEnterItem("left", index)}
                 key={`${item?.label}-${index}`}
-                className={`item ${
-                  itemActive?.left === index ? "active" : ""
-                } `}
+                className={`item ${itemActive === index ? "active" : ""} `}
               >
                 <span className="label">{item?.label}</span>
                 <RightOutlined />
@@ -59,23 +46,19 @@ function PopoverSubjects(props) {
           })}
         </div>
         <div className="content-right">
-          {listContentRight?.[itemActive?.left]?.subItems?.map(
-            (item, index) => {
-              const isLastItem =
-                listContentRight?.[itemActive?.left]?.subItems?.length ===
-                index + 1;
+          {listContentRight?.[itemActive]?.subItems?.map((item, index) => {
+            const isLastItem =
+              listContentRight?.[itemActive]?.subItems?.length === index + 1;
 
-              return (
-                <div
-                  onMouseEnter={() => handleMouseEnterItem("right", index)}
-                  key={`${item?.label}-${index}`}
-                  className={`item ${isLastItem ? "last-item" : ""}`}
-                >
-                  {item?.label}
-                </div>
-              );
-            }
-          )}
+            return (
+              <div
+                key={`${item?.label}-${index}`}
+                className={`item ${isLastItem ? "last-item" : ""}`}
+              >
+                {item?.label}
+              </div>
+            );
+          })}
         </div>
       </div>
     );

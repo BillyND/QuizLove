@@ -1,13 +1,15 @@
 import React from "react";
-import Layout from "../../Layout";
+import { infoUserSubs } from "../../services/customAxios";
+import { useSubscription } from "../../utils/globalStateHook";
 import HomeGuest from "./HomeGuest";
+import HomeLogged from "./HomeLogged";
 
 function Home(props) {
-  return (
-    <div>
-      <HomeGuest />
-    </div>
-  );
+  const {
+    state: { accessToken },
+  } = useSubscription(infoUserSubs);
+
+  return <>{accessToken ? <HomeLogged /> : <HomeGuest />}</>;
 }
 
 export default Home;

@@ -31,7 +31,7 @@ export const listContentLeft = [
 
 export const listContentRight = [
   {
-    index: 0,
+    type: "exams",
     subItems: [
       {
         index: 0,
@@ -52,7 +52,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 1,
+    type: "arts-and-humanities",
     subItems: [
       {
         index: 0,
@@ -84,7 +84,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 2,
+    type: "languages",
     subItems: [
       {
         label: "Tiếng Pháp",
@@ -104,7 +104,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 3,
+    type: "math",
     subItems: [
       {
         label: "Số học",
@@ -130,7 +130,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 4,
+    type: "science",
     subItems: [
       {
         label: "Sinh học",
@@ -156,7 +156,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 5,
+    type: "social-science",
     subItems: [
       {
         label: "Tâm lý học",
@@ -182,7 +182,7 @@ export const listContentRight = [
     ],
   },
   {
-    index: 6,
+    type: "other",
     subItems: [
       {
         label: "Sở thích",

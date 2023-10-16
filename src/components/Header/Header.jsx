@@ -56,12 +56,12 @@ function Header(props) {
         <div className="TopNavigation-content">
           {/* Header left */}
           <div className="TopNavigation-contentLeft">
-            <button
+            <span
               className="logo cursor-pointer remove-style-button"
               onClick={() => handleMoveLocation("/")}
             >
               QuizLove
-            </button>
+            </span>
             <div className="TopNavigation-menuItems">
               <button className="item cursor-pointer remove-style-button">
                 <div className="text" onClick={() => handleMoveLocation("/")}>
@@ -101,7 +101,7 @@ function Header(props) {
 
           {/* Header middle */}
           <div className="TopNavigation-contentMiddle">
-            <div className="TopNavigationItem FullSeachNavigationItem">
+            <div className="TopNavigationItem FullSearchNavigationItem">
               <Search
                 placeholder="Học phần, sách giáo khoa, câu hỏi"
                 allowClear
