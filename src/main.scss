@@ -60,9 +60,14 @@
 }
 
 .button-quiz-love {
-  background-color: #4255ff !important;
+  background-color: #4255ff;
   min-height: 40px !important;
   font-weight: 600 !important;
+}
+
+.button-disabled {
+  background-color: #d9dde8 !important;
+  color: white !important;
 }
 
 .hidden-scrollbar::-webkit-scrollbar {

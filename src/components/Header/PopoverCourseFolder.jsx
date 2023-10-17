@@ -31,7 +31,10 @@ function PopoverCourseFolder(props) {
 
   const contentCourseFolder = (
     <div className="popover-course-folder none-copy">
-      <div className="item class">
+      <div
+        className="item class"
+        onClick={() => handleOpenModal("MODAL_CREATE_CLASS")}
+      >
         <HomeOutlined className="icon" />
         Lớp
       </div>

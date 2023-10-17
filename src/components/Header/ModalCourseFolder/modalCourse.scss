@@ -3,7 +3,13 @@
 
   .content-course {
     display: grid;
-    gap: 20px;
+    padding-bottom: 20px;
+
+    .description {
+      padding-top: 16px;
+      font-size: 16px;
+      padding: 0 2px;
+    }
     .title {
       font-size: 32px;
       font-weight: 700;
@@ -11,7 +17,9 @@
 
     .content {
       display: grid;
-      gap: 16px;
+      .label-input-modal {
+        margin-top: 30px;
+      }
     }
   }
 }

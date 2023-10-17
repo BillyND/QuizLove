@@ -1,16 +1,23 @@
 import { Button, Divider, Modal } from "antd";
 import React, { useState } from "react";
 import { useModal } from "../../../utils/useModal";
-import "./modalCourse.scss";
-import Input from "./Input";
 import { ContentFolder } from "./ContentFolder";
+import "./modalCourse.scss";
 
-function ModalCreateCourse(props) {
+function ModalCreateCourse() {
   const {
     closeModal,
-    openModal,
-    state: { MODAL_CREATE_FOLDER },
+    state: { MODAL_CREATE_FOLDER, MODAL_CREATE_CLASS },
   } = useModal();
+  const [enableCreate, setEnableCreate] = useState(false);
+
+  const visible = MODAL_CREATE_FOLDER || MODAL_CREATE_CLASS;
+
+  const title = MODAL_CREATE_FOLDER ? "Tạo thư mục mới" : "Tạo lớp mới";
+
+  const description = MODAL_CREATE_FOLDER
+    ? ""
+    : "Cung cấp cho các thành viên trong lớp quyền truy cập các hoạt động chất lượng nhất của Quizlet như chế độ Học và Kiểm tra cho tất cả nội dung trong lớp của bạn. Hoàn toàn miễn phí!";
 
   const handleOk = () => {
     closeModal();
@@ -24,16 +31,19 @@ function ModalCreateCourse(props) {
     <>
       <Modal
         title={<div></div>}
-        open={MODAL_CREATE_FOLDER}
+        open={visible}
         onCancel={handleCancel}
         footer={[
           <>
             <Divider />
             <Button
+              disabled={!enableCreate}
               key="link"
               type="primary"
               onClick={handleOk}
-              className="button-quiz-love"
+              className={`button-quiz-love ${
+                !enableCreate ? "button-disabled" : ""
+              }`}
             >
               Tạo thư mục
             </Button>
@@ -42,7 +52,13 @@ function ModalCreateCourse(props) {
         width={800}
       >
         <div className="modal-course-folder">
-          <ContentFolder visibleModal={MODAL_CREATE_FOLDER} />
+          <ContentFolder
+            type={MODAL_CREATE_FOLDER ? "folder" : "class"}
+            description={description}
+            title={title}
+            visibleModal={MODAL_CREATE_FOLDER}
+            setEnableCreate={setEnableCreate}
+          />
         </div>
       </Modal>
     </>

@@ -19,5 +19,7 @@ module.exports = {
     "no-unused-vars": "off",
     "react/prop-types": 0,
     "react-refresh/only-export-components": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off",
   },
 };
