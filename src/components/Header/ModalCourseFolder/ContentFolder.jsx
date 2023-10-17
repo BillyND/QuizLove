@@ -36,6 +36,7 @@ export const ContentFolder = (props) => {
           onChange={setInfoModal}
         />
         <Input
+          visibleModal={visibleModal}
           label={"Mô tả"}
           className={infoModal?.description?.length ? "small" : ""}
           value={infoModal}
