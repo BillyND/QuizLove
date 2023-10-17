@@ -1,0 +1,17 @@
+.modal-course-folder {
+  padding-top: 10px;
+
+  .content-course {
+    display: grid;
+    gap: 20px;
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .content {
+      display: grid;
+      gap: 16px;
+    }
+  }
+}

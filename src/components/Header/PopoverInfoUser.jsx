@@ -3,11 +3,10 @@ import {
   SettingOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
-import { Divider, Popover } from "antd";
+import { Divider, Popover, message } from "antd";
 import React, { useState } from "react";
-import { useSubscription } from "../../utils/globalStateHook";
 import { postLogout } from "../../services/api";
-import { toast } from "react-toastify";
+import { useSubscription } from "../../utils/globalStateHook";
 import { infoUserSubs } from "./Header";
 
 function PopoverInfoUser(props) {
@@ -52,11 +51,11 @@ function PopoverInfoUser(props) {
       refreshToken: "",
     });
 
-    toast.success("Đăng xuất thành công!");
+    message.success("Đăng xuất thành công!");
   };
 
   const contentPopoverUser = (
-    <div className="popover-info-user">
+    <div className="popover-info-user none-copy">
       <div className="header-popover">
         {activator}
         <div className="info-user">
@@ -89,7 +88,11 @@ function PopoverInfoUser(props) {
   );
 
   return (
-    <Popover placement="topLeft" content={contentPopoverUser} trigger="click">
+    <Popover
+      placement="bottomRight"
+      content={contentPopoverUser}
+      trigger="click"
+    >
       {activator}
     </Popover>
   );

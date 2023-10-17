@@ -1,7 +1,6 @@
-import { Button, Form, Input, Space } from "antd";
+import { Button, Form, Input, Space, message } from "antd";
 import { useState } from "react";
 import { postLogin } from "../../services/api";
-import { toast } from "react-toastify";
 import { useSubscription } from "../../utils/globalStateHook";
 import { infoUserSubs, toggleAuthModalSubs } from "../Header/Header";
 
@@ -33,12 +32,12 @@ export function FormLogin(props) {
         localStorage.setItem("infoUser", JSON.stringify(infoUser));
 
         infoUserSubs.updateState(infoUser);
-        toast.success("Đăng nhập thành công!");
+        message.success("Đăng nhập thành công!");
 
         // Close modal login/register
         setState({ type: "" });
       } else if (resLogin?.message) {
-        toast.error(resLogin?.message);
+        message.error(resLogin?.message);
       }
       setIsLoading(false);
     } catch (error) {

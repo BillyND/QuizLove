@@ -8,6 +8,7 @@ import {
 } from "../../utils/globalStateHook";
 import PopoverInfoUser from "./PopoverInfoUser";
 import PopoverSubjects from "./PopoverSubjects";
+import PopoverCourseFolder from "./PopoverCourseFolder";
 
 export const toggleAuthModalSubs = createSubscription({
   type: "",
@@ -126,12 +127,8 @@ function Header(props) {
               />
             </div>
             <div className="TopNavigationItem RightNavigationItem flex-center-all">
-              <PlusOutlined
-                className="icon-plus flex-center-all cursor-pointer transition-02"
-                style={{
-                  display: !accessToken ? "none" : "",
-                }}
-              />
+              {/* Create course folder */}
+              <PopoverCourseFolder accessToken={accessToken} />
 
               {/* Info user */}
               {accessToken && <PopoverInfoUser />}

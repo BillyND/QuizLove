@@ -66,7 +66,7 @@ function PopoverSubjects(props) {
 
   return (
     <Popover
-      placement="topLeft"
+      placement="bottomLeft"
       content={<ContentPopoverSubjects />}
       trigger="click"
     >

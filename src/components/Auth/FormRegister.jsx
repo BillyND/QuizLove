@@ -1,7 +1,6 @@
+import { Button, Form, Input, Space, message } from "antd";
 import React, { useState } from "react";
-import { Button, Form, Input, Space } from "antd";
 import { postRegister } from "../../services/api";
-import { toast } from "react-toastify";
 
 function FormRegister(props) {
   const { handleOpenModalLogonRegister } = props;
@@ -19,10 +18,10 @@ function FormRegister(props) {
       const resRegister = await postRegister(dataRegister);
 
       if (resRegister.EC === 0) {
-        toast.success(resRegister.message);
+        message.success(resRegister.message);
         handleOpenModalLogonRegister("login");
       } else {
-        toast.error(resRegister.message);
+        message.error(resRegister.message);
       }
 
       setIsLoading(false);

@@ -5,6 +5,66 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+.label-input-modal {
+  width: 100%;
+  min-height: 56px;
+  height: fit-content;
+  background-color: rgb(246, 247, 251) !important;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: rgb(88, 99, 128);
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  justify-content: center;
+  line-height: 26px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 4px 16px;
+  position: relative;
+  text-align: left;
+
+  .input {
+    position: absolute;
+    inset: 0;
+    padding: 8px 16px;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    background-color: rgb(246, 247, 251) !important;
+  }
+
+  .label {
+    position: absolute;
+    top: 0;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .small {
+    margin-bottom: 0;
+    margin-top: 20px;
+    bottom: 0;
+  }
+
+  .line-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 2px;
+    background-color: black;
+    inset-inline-end: 0;
+    inset-inline-start: 0;
+    display: none;
+  }
+}
+
+.button-quiz-love {
+  background-color: #4255ff !important;
+  min-height: 40px !important;
+  font-weight: 600 !important;
+}
+
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -461,7 +521,7 @@
     }
 
     .item:hover {
-      background-color: rgba(227, 227, 227, 0.433);
+      background-color: rgba(227, 227, 227, 0.433) !important;
       cursor: pointer;
     }
 
@@ -472,6 +532,38 @@
       align-items: center;
       gap: 16px;
     }
+  }
+}
+
+.popover-course-folder {
+  width: 210px;
+  height: 140px;
+  display: grid;
+  padding: 8px 0;
+
+  .item {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(68, 68, 68);
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 50%;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .item:hover {
+    background-color: rgba(227, 227, 227, 0.433) !important;
+    cursor: pointer;
   }
 }
 
