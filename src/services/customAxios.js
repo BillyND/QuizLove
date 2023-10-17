@@ -8,17 +8,6 @@ let instance = axios.create({
   baseURL: baseURL + "v1/api/",
 });
 
-export const infoUserSubs = createSubscription({
-  email: "",
-  isAdmin: false,
-  username: "",
-  _id: "",
-  createdAt: "",
-  updatedAt: "",
-  accessToken: "",
-  refreshToken: "",
-});
-
 // Handle refresh Token
 const handleRefreshToken = async () => {
   const refreshLocal = localStorage.getItem("refreshToken");
@@ -28,12 +17,14 @@ const handleRefreshToken = async () => {
   } else return;
 };
 
+const accessToken = JSON.parse(localStorage?.getItem("infoUser"))?.accessToken;
+
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
     // Apply accessToken in LS to header
     instance.defaults.headers.common = {
-      Authorization: `Bearer ${infoUserSubs?.state?.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     };
     return config;
   },

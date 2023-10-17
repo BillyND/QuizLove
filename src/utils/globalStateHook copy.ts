@@ -82,11 +82,6 @@ export interface IStateUpdater<S> {
   state: S;
 }
 
-export interface IStateReduceUpdater<S> {
-  dispatch: (p: any) => void;
-  state: S;
-}
-
 function useSubscriber<S extends object, P extends Array<string>>(
   subscriber: ISubscription<S>,
   /**
@@ -123,21 +118,6 @@ function useSubscriber<S extends object, P extends Array<string>>(
   return changed;
 }
 
-export function useReducerSubscription<S extends object>(
-  subscriber: ISubscription<S>,
-  reducer: any = () => {}
-): IStateReduceUpdater<S> {
-  useSubscriber(subscriber);
-  const dispatch = (...args: any) => {
-    const newState = reducer(subscriber.state, ...args);
-    subscriber.state = Object.assign({}, subscriber.state, newState);
-    subscriber.listener.forEach((fn) => fn(newState));
-  };
-  React.useDebugValue(subscriber.state);
-
-  return { state: subscriber?.state, dispatch };
-}
-
 export function useSubscription<S extends object, P extends Array<string>>(
   subscriber: ISubscription<S>,
   pick?: P
@@ -164,52 +144,10 @@ export function useSubscription<S extends object, P extends Array<string>>(
         subscriber.listener.forEach((fn) => fn(newState));
         callback && callback();
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       [subscriber.state, pick]
     ),
   };
 }
-
-export const createReactive = <S extends object>(
-  initialState: S
-): IReactive<S> => {
-  const listener: Set<Listener<string>> = new Set();
-  const subscribe = (fn: Listener<string>) => listener.add(fn);
-  const unsubscribe = (fn: Listener<string>) => listener.delete(fn);
-  const store: S = new Proxy(initialState, {
-    set(target, p: string, value, receiver) {
-      listener.forEach((fn) => fn(p));
-      return Reflect.set(target, p, value, receiver);
-    },
-  });
-  return {
-    listener,
-    store,
-    subscribe,
-    unsubscribe,
-  };
-};
-
-export const useReactive = <S extends object>(
-  reactiveStore: IReactive<S>,
-  pick?: Array<string>
-) => {
-  const [, setUpdate] = React.useState({});
-  const updater = React.useCallback(
-    (prop) => {
-      if (!pick || (Array.isArray(pick) && pick.includes(prop))) {
-        setUpdate({});
-      }
-    },
-    [pick]
-  );
-  React.useEffect(() => {
-    reactiveStore.subscribe(updater);
-    return () => reactiveStore.unsubscribe(updater);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return reactiveStore.store;
-};
 
 /**
  * This function can be used to get value of a nested object property.

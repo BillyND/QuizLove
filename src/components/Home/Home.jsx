@@ -1,9 +1,9 @@
 import React from "react";
-import { infoUserSubs } from "../../services/customAxios";
 import { useSubscription } from "../../utils/globalStateHook";
 import "./Home.scss";
 import HomeGuest from "./HomeGuest";
 import HomeLogged from "./HomeLogged";
+import { infoUserSubs } from "../Header/Header";
 
 function Home(props) {
   const {

@@ -3,8 +3,7 @@ import { useState } from "react";
 import { postLogin } from "../../services/api";
 import { toast } from "react-toastify";
 import { useSubscription } from "../../utils/globalStateHook";
-import { toggleAuthModalSubs } from "../Header/Header";
-import { infoUserSubs } from "../../services/customAxios";
+import { infoUserSubs, toggleAuthModalSubs } from "../Header/Header";
 
 export function FormLogin(props) {
   const { handleOpenModalLogonRegister } = props;

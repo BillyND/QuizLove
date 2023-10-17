@@ -7,8 +7,8 @@ import { Divider, Popover } from "antd";
 import React, { useState } from "react";
 import { useSubscription } from "../../utils/globalStateHook";
 import { postLogout } from "../../services/api";
-import { infoUserSubs } from "../../services/customAxios";
 import { toast } from "react-toastify";
+import { infoUserSubs } from "./Header";
 
 function PopoverInfoUser(props) {
   const {

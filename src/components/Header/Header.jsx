@@ -2,7 +2,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { infoUserSubs } from "../../services/customAxios";
 import {
   createSubscription,
   useSubscription,
@@ -12,6 +11,17 @@ import PopoverSubjects from "./PopoverSubjects";
 
 export const toggleAuthModalSubs = createSubscription({
   type: "",
+});
+
+export const infoUserSubs = createSubscription({
+  email: "",
+  isAdmin: false,
+  username: "",
+  _id: "",
+  createdAt: "",
+  updatedAt: "",
+  accessToken: "",
+  refreshToken: "",
 });
 
 export const handleApplyInfoUserToSubs = () => {
