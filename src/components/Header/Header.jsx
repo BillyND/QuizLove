@@ -1,4 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { MenuOutlined, PlusOutlined } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -36,6 +36,7 @@ export const handleApplyInfoUserToSubs = () => {
 function Header(props) {
   const navigate = useNavigate();
   const locationNow = useLocation();
+
   const {
     state: { type },
     setState,
@@ -66,6 +67,11 @@ function Header(props) {
         <div className="TopNavigation-content">
           {/* Header left */}
           <div className="TopNavigation-contentLeft">
+            <MenuOutlined className="button-menu-left" />
+            <div
+              className="logo-mini"
+              onClick={() => handleMoveLocation("/")}
+            ></div>
             <span
               className="logo cursor-pointer remove-style-button"
               onClick={() => handleMoveLocation("/")}
@@ -141,13 +147,13 @@ function Header(props) {
               ) : (
                 <button
                   style={{
-                    width: "170px",
+                    width: "96px",
                     padding: "6px 14px",
                   }}
                   className="register-button flex-center-all transition-02"
                   onClick={() => handleMoveLocation("upgrade")}
                 >
-                  <span>Dùng thử miễn phí</span>
+                  <span>Nâng cấp</span>
                 </button>
               )}
             </div>

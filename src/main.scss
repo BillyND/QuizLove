@@ -1,12 +1,16 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.main-content-children {
+  margin-top: 63px;
 }
 
 .shadow-card {
@@ -44,16 +48,17 @@
 }
 
 .remove-style-button {
-  background-color: transparent;
-  border: none;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 .TopNavigationWrapper {
   box-sizing: border-box;
   position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
+  width: 100%;
 }
 
 .TopNavigation {
@@ -76,6 +81,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      .logo-mini {
+        display: none;
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        margin-left: 8px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url("https://assets.quizlet.com/a/j/dist/app/i/logo/2021/q-twilight.e27821d9baad165.png");
+      }
+
+      .button-menu-left {
+        display: none;
+        border-radius: 50%;
+        padding: 8px;
+        cursor: pointer;
+        scale: 1.2;
+      }
+      .button-menu-left:hover {
+        background-color: rgba(231, 231, 231, 0.554);
+      }
 
       .logo {
         padding: 0 16px;
@@ -212,7 +239,7 @@
 }
 
 .modal-login-register {
-  transition: 0.4s;
+  transition: 0.2s;
   opacity: 0;
   width: 100%;
   height: 100%;
@@ -643,6 +670,32 @@
 
 // Responsive
 @media only screen and (max-width: 1024px) {
+  .TopNavigation {
+    .TopNavigation-content {
+      .TopNavigation-contentLeft {
+        .logo-mini {
+          display: block;
+        }
+        .button-menu-left {
+          display: block;
+        }
+
+        .logo {
+          display: none;
+        }
+        .TopNavigation-menuItems {
+          display: none;
+        }
+      }
+
+      .TopNavigation-contentMiddle {
+        .FullSearchNavigationItem {
+          padding: 0 16px;
+        }
+      }
+    }
+  }
+
   .modal-login-register {
     grid-template-columns: auto;
     .content-login-register-left {
@@ -739,7 +792,20 @@
       }
     }
   }
+
+  .TopNavigation {
+    .TopNavigation-content {
+      .TopNavigation-contentMiddle {
+        .FullSearchNavigationItem {
+          width: 0px !important;
+          padding: 4px;
+          opacity: 0;
+        }
+      }
+    }
+  }
 }
+
 @media only screen and (max-width: 620px) {
   .home-guest {
     .banner {
