@@ -66,7 +66,7 @@
   width: 100%;
   height: 64px;
   background-color: #fff;
-  border-bottom: 0.0625rem solid #edeff4;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   color: #282e3e;
   display: flex;
   height: 4rem;
@@ -174,6 +174,23 @@
         height: 100%;
         padding: 0 1.5rem;
         align-items: center;
+
+        .ant-input-affix-wrapper {
+          height: 40px;
+        }
+
+        .icon-search {
+          color: gray;
+          padding-right: 4px;
+        }
+
+        .ant-btn {
+          display: none;
+        }
+
+        .ant-input-affix-wrapper {
+          border-radius: 20px;
+        }
       }
 
       .RightNavigationItem {
@@ -792,21 +809,13 @@
       }
     }
   }
-
-  .TopNavigation {
-    .TopNavigation-content {
-      .TopNavigation-contentMiddle {
-        .FullSearchNavigationItem {
-          width: 0px !important;
-          padding: 4px;
-          opacity: 0;
-        }
-      }
-    }
-  }
 }
 
 @media only screen and (max-width: 620px) {
+  .main-content-children {
+    margin-top: 111px;
+  }
+
   .home-guest {
     .banner {
       padding: 30px;
@@ -819,6 +828,30 @@
       .content-header {
         font-size: 24px;
         line-height: 32px;
+      }
+    }
+  }
+
+  .icon-avatar-user-header {
+    display: none;
+  }
+
+  .TopNavigation {
+    .TopNavigation-content {
+      .TopNavigation-contentMiddle {
+        .FullSearchNavigationItem {
+          height: fit-content;
+          position: fixed;
+          width: 100%;
+          top: 63px;
+          left: 0;
+          z-index: 1000;
+          background-color: #fff;
+          padding: 10px;
+          padding-top: 0;
+          border: none;
+          box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
       }
     }
   }

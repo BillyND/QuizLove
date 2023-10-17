@@ -1,4 +1,4 @@
-import { MenuOutlined, PlusOutlined } from "@ant-design/icons";
+import { MenuOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -117,14 +117,21 @@ function Header(props) {
 
           {/* Header middle */}
           <div className="TopNavigation-contentMiddle">
+            <div className="space-phone"></div>
             <div className="TopNavigationItem FullSearchNavigationItem">
               <Search
                 placeholder="Học phần, sách giáo khoa, câu hỏi"
+                prefix={<SearchOutlined className="icon-search" />}
                 allowClear
               />
             </div>
             <div className="TopNavigationItem RightNavigationItem flex-center-all">
-              <PlusOutlined className="icon-plus flex-center-all cursor-pointer transition-02" />
+              <PlusOutlined
+                className="icon-plus flex-center-all cursor-pointer transition-02"
+                style={{
+                  display: !accessToken ? "none" : "",
+                }}
+              />
 
               {/* Info user */}
               {accessToken && <PopoverInfoUser />}
