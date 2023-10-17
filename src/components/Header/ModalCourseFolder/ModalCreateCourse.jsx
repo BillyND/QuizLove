@@ -33,6 +33,7 @@ function ModalCreateCourse() {
         title={<div></div>}
         open={visible}
         onCancel={handleCancel}
+        style={{ top: window.innerWidth < 400 ? 50 : "" }}
         footer={[
           <>
             <Divider />
