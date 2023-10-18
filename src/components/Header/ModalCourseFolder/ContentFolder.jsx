@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "./Input";
 import useModal from "antd/es/modal/useModal";
 import { useDebounce } from "../../../utils/useDebounce";
+import { Checkbox } from "antd";
 
 const initDataFocus = {
   name: false,
@@ -15,15 +16,35 @@ const initDataInfo = {
   class: "",
 };
 
+const initCheckbox = {
+  allowEnrollment: true,
+  invitationSent: true,
+};
+
 export const ContentFolder = (props) => {
   const { visibleModal, setEnableCreate, title, description, type } = props;
   const [focus, setFocus] = useState(initDataFocus);
   const [infoModal, setInfoModal] = useState(initDataInfo);
   const debounceInfoModal = useDebounce(JSON.stringify(infoModal), 50);
+  const firstInputRef = useRef(null);
+  const [dataCheckBox, setDataCheckbox] = useState(initCheckbox);
+
+  const debounceVisibleModal = useDebounce(visibleModal, 100);
 
   useEffect(() => {
     handleCheckEnableButtonCreate();
   }, [debounceInfoModal]);
+
+  useEffect(() => {
+    firstInputRef.current.focus();
+    debounceVisibleModal?.active && resetData();
+  }, [debounceVisibleModal]);
+
+  const resetData = () => {
+    setFocus(initDataFocus);
+    setInfoModal(initDataInfo);
+    setDataCheckbox(initCheckbox);
+  };
 
   const handleCheckEnableButtonCreate = () => {
     if (
@@ -43,6 +64,7 @@ export const ContentFolder = (props) => {
       <div className="content">
         <Input
           {...props}
+          firstInputRef={firstInputRef}
           visibleModal={visibleModal}
           label={type === "class" ? "Tên lớp" : "Tiêu đề"}
           className={infoModal?.name?.length ? "small" : ""}
@@ -69,6 +91,41 @@ export const ContentFolder = (props) => {
           type={"description"}
           onChange={setInfoModal}
         />
+
+        {type === "class" && (
+          <>
+            <Checkbox
+              checked={dataCheckBox?.allowEnrollment}
+              onChange={(e) => {
+                setDataCheckbox({
+                  ...dataCheckBox,
+                  allowEnrollment: e.target.checked,
+                });
+              }}
+              className="check-box-input-modal"
+            >
+              <span className="description">
+                Cho phép các thành viên trong lớp thêm và bỏ học phần
+              </span>
+            </Checkbox>
+
+            <Checkbox
+              checked={dataCheckBox?.invitationSent}
+              onChange={(e) => {
+                setDataCheckbox({
+                  ...dataCheckBox,
+                  invitationSent: e.target.checked,
+                });
+              }}
+              className="check-box-input-modal"
+            >
+              <span className="description">
+                Cho phép các thành viên trong lớp mời thành viên mới
+              </span>
+            </Checkbox>
+          </>
+        )}
+
         {type === "class" && (
           <Input
             {...props}

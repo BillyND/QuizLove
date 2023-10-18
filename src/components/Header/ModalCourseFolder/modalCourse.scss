@@ -17,9 +17,18 @@
 
     .content {
       display: grid;
+      margin-top: 10px;
       .label-input-modal {
-        margin-top: 30px;
+        margin-top: 20px;
       }
+
+      .ant-checkbox {
+        scale: 1.2;
+      }
+    }
+
+    .check-box-input-modal {
+      padding-top: 20px;
     }
   }
 }

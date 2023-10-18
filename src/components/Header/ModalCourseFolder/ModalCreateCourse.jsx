@@ -30,7 +30,7 @@ function ModalCreateCourse() {
   return (
     <>
       <Modal
-        title={<div></div>}
+        className="none-copy"
         open={visible}
         onCancel={handleCancel}
         style={{ top: window.innerWidth < 400 ? 50 : "" }}
@@ -57,7 +57,7 @@ function ModalCreateCourse() {
             type={MODAL_CREATE_FOLDER ? "folder" : "class"}
             description={description}
             title={title}
-            visibleModal={MODAL_CREATE_FOLDER}
+            visibleModal={visible}
             setEnableCreate={setEnableCreate}
           />
         </div>

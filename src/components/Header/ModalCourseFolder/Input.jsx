@@ -13,6 +13,7 @@ function Input(props) {
     focus,
     className,
     visibleModal,
+    firstInputRef,
   } = props;
 
   const handleFocus = (isFocus) => {
@@ -33,6 +34,7 @@ function Input(props) {
     <label className="label-input-modal">
       <span className="label">{label}</span>
       <input
+        ref={firstInputRef}
         className={`input ${className}`}
         placeholder={placeHolder}
         type="text"
