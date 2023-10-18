@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getFolderByCondition } from "../../services/api";
 import { useDebounce } from "../../utils/useDebounce";
 import "./DetailFolder.scss";
+import { Alert, Spin } from "antd";
 
 function DetailFolder(props) {
   const params = useParams();
@@ -16,9 +17,9 @@ function DetailFolder(props) {
 
   const handleGetFolderByCondition = async () => {
     setIsLoading(true);
+    setFolder(null);
     try {
       const resFolder = await getFolderByCondition({ folderId });
-
       setFolder(resFolder?.data?.[0]);
       setIsLoading(false);
     } catch (error) {
@@ -31,8 +32,25 @@ function DetailFolder(props) {
     handleGetFolderByCondition();
   }, [debounceParams]);
 
+  console.log(">>>isLoading:", isLoading);
+
+  if (isLoading) {
+    return (
+      <Spin size="large">
+        <Alert
+          message=""
+          description=""
+          // type="info"
+          style={{ height: "100vh", backgroundColor: "transparent" }}
+        />
+      </Spin>
+    );
+  }
+
+  // );
+
   return (
-    <div className="container detail-folder-page">
+    <div className="container detail-folder-page ">
       <div className="header-detail-page">
         <span className="count-course">0 học phần</span>
 
