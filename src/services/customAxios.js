@@ -7,28 +7,40 @@ let instance = axios.create({
   baseURL: baseURL + "v1/api/",
 });
 
+// Function to get the access token from localStorage
+export const getAccessToken = () => {
+  const infoUser = JSON.parse(localStorage.getItem("infoUser"));
+  return infoUser?.accessToken;
+};
+
 // Handle refresh Token
 const handleRefreshToken = async () => {
-  const refreshLocal = localStorage.getItem("refreshToken");
-  const res = await instance.post("/v1/api/auth/refresh", { refreshLocal });
+  const refreshLocal = JSON.parse(
+    localStorage?.getItem("infoUser")
+  )?.refreshToken;
+  const res = await instance.post("/auth/refresh", { refreshLocal });
   if (res && res.data) {
     return res.data;
   } else return;
 };
 
-const accessToken = JSON.parse(localStorage?.getItem("infoUser"))?.accessToken;
-
-// Add a request interceptor
-instance.interceptors.request.use(
-  function (config) {
-    // Apply accessToken in LS to header
+// Function to set the access token in the header
+const setAccessToken = () => {
+  const accessToken = getAccessToken();
+  if (accessToken) {
     instance.defaults.headers.common = {
       Authorization: `Bearer ${accessToken}`,
     };
+  }
+};
+
+// Add a request interceptor
+instance.interceptors.request.use(
+  async function (config) {
+    setAccessToken();
     return config;
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error);
   }
 );
@@ -36,18 +48,17 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+    setAccessToken();
+
     return response && response.data ? response.data : response;
   },
 
-  // Error with LS refresh token
   async function (error) {
+    setAccessToken();
     if (
       error.config &&
       error.response &&
       +error.response.status === 401 &&
-      // Condition to avoid infinite retries
       !error.config.headers[NO_RETRY_HEADER]
     ) {
       const data = await handleRefreshToken();
@@ -55,8 +66,16 @@ instance.interceptors.response.use(
 
       if (data && data.accessToken && data.refreshToken) {
         error.config.headers["Authorization"] = `Bearer ${data.accessToken}`;
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
+
+        let infoUser = JSON.parse(localStorage.getItem("infoUser"));
+
+        infoUser = {
+          ...infoUser,
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+        };
+
+        localStorage.setItem("infoUser", JSON.stringify(infoUser));
         return instance.request(error.config);
       } else return;
     }
@@ -64,10 +83,9 @@ instance.interceptors.response.use(
       error.config &&
       error.response &&
       +error.response.status === 400 &&
-      error.config.url === "/v1/api/auth/refresh"
+      error.config.url === "/auth/refresh"
     ) {
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
+      localStorage.removeItem("infoUser");
       window.location.href = "/login";
     }
 

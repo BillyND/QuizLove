@@ -1,9 +1,10 @@
 import { Button, Form, Input, Space, message } from "antd";
 import React, { useState } from "react";
 import { postRegister } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function FormRegister(props) {
-  const { handleOpenModalLogonRegister } = props;
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -19,7 +20,7 @@ function FormRegister(props) {
 
       if (resRegister.EC === 0) {
         message.success(resRegister.message);
-        handleOpenModalLogonRegister("login");
+        navigate("/login");
       } else {
         message.error(resRegister.message);
       }
@@ -100,7 +101,7 @@ function FormRegister(props) {
           <Button
             disabled={isLoading}
             block
-            onClick={() => handleOpenModalLogonRegister("login")}
+            onClick={() => navigate("/login")}
             style={{ height: "40px", marginTop: "10px" }}
           >
             <span style={{ fontWeight: "500", color: "black" }}>

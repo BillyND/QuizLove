@@ -4,22 +4,20 @@ import { useSubscription } from "../../utils/globalStateHook";
 import { FormLogin } from "./FormLogin";
 import FormRegister from "./FormRegister";
 import { toggleAuthModalSubs } from "../Header/Header";
+import { useNavigate } from "react-router-dom";
 
-function Auth(props) {
+function Auth() {
+  const navigate = useNavigate();
   const {
     state: { type },
-    setState,
   } = useSubscription(toggleAuthModalSubs);
 
   const handleCloseModalLogin = () => {
-    setState({ type: "" });
+    navigate("/");
   };
 
   const handleOpenModalLogonRegister = (typeOpen) => {
-    if (typeOpen === type) return;
-    setState({
-      type: typeOpen,
-    });
+    navigate(`/${typeOpen}`);
   };
 
   return (

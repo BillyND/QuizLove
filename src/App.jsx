@@ -1,22 +1,21 @@
-import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./Layout";
-import Auth from "./components/Auth/Auth";
-import Home from "./components/Home/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UpgradePlan from "./components/UpdradePlan/UpgradePlan";
+import Layout from "./Layout";
+import Auth from "./components/Auth/Auth";
+import DetailFolder from "./components/DetailsFolder/DetailFolder";
 import Explanations from "./components/Explanations/Explanations";
 import GoodbyePage from "./components/GoodbyePage/GoodbyePage";
+import Home from "./components/Home/Home";
+import UpgradePlan from "./components/UpdradePlan/UpgradePlan";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App non-copy">
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/folders/:id" element={<DetailFolder />} />
           <Route path="/goodbye" element={<GoodbyePage />} />
           <Route path="/upgrade" element={<UpgradePlan />} />
           <Route path="/explanations" element={<Explanations />} />

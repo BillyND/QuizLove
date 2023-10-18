@@ -1,8 +1,10 @@
-import { Button, Divider, Modal } from "antd";
+import { Button, Divider, Modal, message } from "antd";
 import React, { useState } from "react";
 import { useModal } from "../../../utils/useModal";
 import { ContentFolder } from "./ContentFolder";
 import "./modalCourse.scss";
+import { createFolder } from "../../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function ModalCreateCourse() {
   const {
@@ -10,17 +12,40 @@ function ModalCreateCourse() {
     state: { MODAL_CREATE_FOLDER, MODAL_CREATE_CLASS },
   } = useModal();
   const [enableCreate, setEnableCreate] = useState(false);
+  const [infoCreatePost, setInfoCreatePost] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const visible = MODAL_CREATE_FOLDER || MODAL_CREATE_CLASS;
-
   const title = MODAL_CREATE_FOLDER ? "Tạo thư mục mới" : "Tạo lớp mới";
 
   const description = MODAL_CREATE_FOLDER
     ? ""
     : "Cung cấp cho các thành viên trong lớp quyền truy cập các hoạt động chất lượng nhất của Quizlet như chế độ Học và Kiểm tra cho tất cả nội dung trong lớp của bạn. Hoàn toàn miễn phí!";
 
-  const handleOk = () => {
-    closeModal();
+  const handleOk = async () => {
+    setIsLoading(true);
+    try {
+      const resInfoPost = MODAL_CREATE_FOLDER
+        ? await createFolder(infoCreatePost)
+        : null;
+
+      const folderId = resInfoPost?.data?._id;
+
+      if (resInfoPost?.EC === 0 && folderId) {
+        message.success("Tạo thư mục thành công!");
+        navigate(`/folders/${folderId}`);
+      } else {
+        message.success("Tạo thư mục thất bại!");
+      }
+      setIsLoading(false);
+      closeModal();
+    } catch (error) {
+      message.success("Máy chủ lỗi!");
+      console.error(error);
+      setIsLoading(false);
+      closeModal();
+    }
   };
 
   const handleCancel = () => {
@@ -38,7 +63,8 @@ function ModalCreateCourse() {
           <>
             <Divider />
             <Button
-              disabled={!enableCreate}
+              loading={isLoading}
+              disabled={!enableCreate || isLoading}
               key="link"
               type="primary"
               onClick={handleOk}
@@ -54,6 +80,7 @@ function ModalCreateCourse() {
       >
         <div className="modal-course-folder">
           <ContentFolder
+            setInfoCreatePost={setInfoCreatePost}
             type={MODAL_CREATE_FOLDER ? "folder" : "class"}
             description={description}
             title={title}

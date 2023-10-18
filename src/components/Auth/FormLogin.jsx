@@ -1,13 +1,14 @@
 import { Button, Form, Input, Space, message } from "antd";
 import { useState } from "react";
-import { postLogin } from "../../services/api";
+import { getTriggerToken, postLogin } from "../../services/api";
 import { useSubscription } from "../../utils/globalStateHook";
 import { infoUserSubs, toggleAuthModalSubs } from "../Header/Header";
+import { useNavigate } from "react-router-dom";
 
-export function FormLogin(props) {
-  const { handleOpenModalLogonRegister } = props;
+export function FormLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { setState } = useSubscription(toggleAuthModalSubs);
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setIsLoading(true);
@@ -30,15 +31,15 @@ export function FormLogin(props) {
       if (resLogin?.EC === 0 && accessToken && refreshToken) {
         // Save data to localStorage
         localStorage.setItem("infoUser", JSON.stringify(infoUser));
-
         infoUserSubs.updateState(infoUser);
         message.success("Đăng nhập thành công!");
-
+        navigate("/");
         // Close modal login/register
         setState({ type: "" });
       } else if (resLogin?.message) {
         message.error(resLogin?.message);
       }
+      getTriggerToken();
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -120,9 +121,7 @@ export function FormLogin(props) {
                 disabled={isLoading}
                 className="remove-style-button cursor-pointer"
                 type="button"
-                onClick={() =>
-                  !isLoading && handleOpenModalLogonRegister("register")
-                }
+                onClick={() => !isLoading && navigate("/register")}
               >
                 Tạo tài khoản
               </button>

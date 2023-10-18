@@ -5,7 +5,7 @@ import {
 } from "@ant-design/icons";
 import { Divider, Popover, message } from "antd";
 import React, { useState } from "react";
-import { postLogout } from "../../services/api";
+import { getTriggerToken, postLogout } from "../../services/api";
 import { useSubscription } from "../../utils/globalStateHook";
 import { infoUserSubs } from "./Header";
 
@@ -27,6 +27,7 @@ function PopoverInfoUser(props) {
   );
 
   const handleLogout = async () => {
+    getTriggerToken();
     if (isLoading) return;
 
     setIsLoading(true);
@@ -50,7 +51,7 @@ function PopoverInfoUser(props) {
       accessToken: "",
       refreshToken: "",
     });
-
+    getTriggerToken();
     message.success("Đăng xuất thành công!");
   };
 

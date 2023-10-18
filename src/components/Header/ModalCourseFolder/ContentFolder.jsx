@@ -22,7 +22,14 @@ const initCheckbox = {
 };
 
 export const ContentFolder = (props) => {
-  const { visibleModal, setEnableCreate, title, description, type } = props;
+  const {
+    visibleModal,
+    setEnableCreate,
+    title,
+    description,
+    type,
+    setInfoCreatePost,
+  } = props;
   const [focus, setFocus] = useState(initDataFocus);
   const [infoModal, setInfoModal] = useState(initDataInfo);
   const debounceInfoModal = useDebounce(JSON.stringify(infoModal), 50);
@@ -33,6 +40,7 @@ export const ContentFolder = (props) => {
 
   useEffect(() => {
     handleCheckEnableButtonCreate();
+    setInfoCreatePost(JSON.parse(debounceInfoModal));
   }, [debounceInfoModal]);
 
   useEffect(() => {

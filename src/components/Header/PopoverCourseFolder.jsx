@@ -8,6 +8,7 @@ import { Popover } from "antd";
 import React, { useState } from "react";
 import { useModal } from "../../utils/useModal";
 import ModalCreateCourse from "./ModalCourseFolder/ModalCreateCourse";
+import { windowWidth } from "../../utils/constant";
 
 function PopoverCourseFolder(props) {
   const { accessToken } = props;
@@ -24,7 +25,7 @@ function PopoverCourseFolder(props) {
       onClick={() => setVisible(!visible)}
       className="icon-plus flex-center-all cursor-pointer transition-02"
       style={{
-        display: !accessToken ? "none" : "",
+        display: windowWidth < 600 && !accessToken ? "none" : "",
       }}
     />
   );

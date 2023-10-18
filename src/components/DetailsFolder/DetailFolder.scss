@@ -1,0 +1,41 @@
+.detail-folder-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 40px;
+
+  .header-detail-page {
+    display: flex;
+    gap: 32px;
+
+    .author {
+      display: flex;
+      gap: 10px;
+      .thumbnail {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: gray;
+      }
+    }
+  }
+
+  .title-detail-page {
+    font-size: 38px;
+    font-weight: 700;
+    display: flex;
+    gap: 16px;
+    width: 100%;
+
+    .name-folder {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .icon-title-detail-page {
+      color: gray;
+      font-size: 45px;
+    }
+  }
+}

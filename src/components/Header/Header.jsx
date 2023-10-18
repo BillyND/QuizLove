@@ -9,9 +9,16 @@ import {
 import PopoverInfoUser from "./PopoverInfoUser";
 import PopoverSubjects from "./PopoverSubjects";
 import PopoverCourseFolder from "./PopoverCourseFolder";
+import { getTriggerToken } from "../../services/api";
+import { useParams } from "react-router-dom";
+import { useDebounce } from "../../utils/useDebounce";
+
+let pathnameNow = window.location?.pathname?.replace(/\//g, "");
+
+pathnameNow = "login/register".includes(pathnameNow) ? pathnameNow : "";
 
 export const toggleAuthModalSubs = createSubscription({
-  type: "",
+  type: pathnameNow,
 });
 
 export const infoUserSubs = createSubscription({
@@ -34,17 +41,23 @@ export const handleApplyInfoUserToSubs = () => {
   }
 };
 
-function Header(props) {
+function Header() {
   const navigate = useNavigate();
   const locationNow = useLocation();
-
-  const {
-    state: { type },
-    setState,
-  } = useSubscription(toggleAuthModalSubs);
+  const { setState } = useSubscription(toggleAuthModalSubs);
   const {
     state: { accessToken },
   } = useSubscription(infoUserSubs);
+  const pathname = window.location?.pathname?.replace(/\//g, "");
+  const debouncePathName = useDebounce(pathname, 10);
+
+  useEffect(() => {
+    handleOpenModalLogonRegister(debouncePathName);
+  }, [debouncePathName]);
+
+  useEffect(() => {
+    getTriggerToken();
+  }, []);
 
   useEffect(() => {
     handleApplyInfoUserToSubs();
@@ -56,7 +69,9 @@ function Header(props) {
   };
 
   const handleOpenModalLogonRegister = (typeOpen) => {
-    if (typeOpen === type) return;
+    setState({
+      type: "",
+    });
     setState({
       type: typeOpen,
     });
@@ -137,13 +152,13 @@ function Header(props) {
                 <>
                   <button
                     className="login-button flex-center-all"
-                    onClick={() => handleOpenModalLogonRegister("login")}
+                    onClick={() => navigate("/login")}
                   >
                     Đăng nhập
                   </button>
                   <button
                     className="register-button flex-center-all transition-02"
-                    onClick={() => handleOpenModalLogonRegister("register")}
+                    onClick={() => navigate("/register")}
                   >
                     Đăng ký
                   </button>
