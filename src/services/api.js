@@ -45,7 +45,7 @@ export const createFolder = ({ name, description }) => {
 };
 
 export const getFolderByCondition = ({
-  folderId,
+  folderId = null,
   isDeleted = false,
   isHidden = false,
   page = 1,

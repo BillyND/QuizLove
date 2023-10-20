@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { listNewFeature, windowWidth } from "../../utils/constant";
 
-const listRecent = [
+export const listRecent = [
   {
     title: "title 1",
     assembly: "36 thuật ngữ",

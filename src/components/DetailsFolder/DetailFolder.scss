@@ -1,8 +1,13 @@
 .detail-folder-page {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 1px;
   padding-top: 40px;
+
+  .content-detail-page {
+    display: grid;
+    gap: 16px;
+  }
 
   .header-detail-page {
     display: flex;
@@ -36,6 +41,24 @@
     .icon-title-detail-page {
       color: gray;
       font-size: 45px;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .detail-folder-page {
+    .content-detail-page {
+      .list-recent {
+        display: block;
+        grid-template-columns: auto;
+        .item {
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    .icon-title-detail-page {
+      display: none;
     }
   }
 }

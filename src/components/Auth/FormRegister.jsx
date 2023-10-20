@@ -19,7 +19,6 @@ function FormRegister(props) {
       const resRegister = await postRegister(dataRegister);
 
       if (resRegister.EC === 0) {
-        message.success(resRegister.message);
         navigate("/login");
       } else {
         message.error(resRegister.message);

@@ -13,7 +13,7 @@ function PopoverInfoUser(props) {
   const {
     state: { email, username },
     setState,
-  } = useSubscription(infoUserSubs);
+  } = useSubscription(infoUserSubs, ["email", "username"]);
   const [isLoading, setIsLoading] = useState(false);
 
   const activator = (
@@ -52,7 +52,6 @@ function PopoverInfoUser(props) {
       refreshToken: "",
     });
     getTriggerToken();
-    message.success("Đăng xuất thành công!");
   };
 
   const contentPopoverUser = (

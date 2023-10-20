@@ -32,7 +32,6 @@ export function FormLogin() {
         // Save data to localStorage
         localStorage.setItem("infoUser", JSON.stringify(infoUser));
         infoUserSubs.updateState(infoUser);
-        message.success("Đăng nhập thành công!");
         navigate("/");
         // Close modal login/register
         setState({ type: "" });

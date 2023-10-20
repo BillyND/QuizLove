@@ -33,15 +33,15 @@ function ModalCreateCourse() {
       const folderId = resInfoPost?.data?._id;
 
       if (resInfoPost?.EC === 0 && folderId) {
-        message.success("Tạo thư mục thành công!");
         navigate(`/folders/${folderId}`);
       } else {
-        message.success("Tạo thư mục thất bại!");
+        message.error("Tạo thư mục thất bại!");
       }
+
       setIsLoading(false);
       closeModal();
     } catch (error) {
-      message.success("Máy chủ lỗi!");
+      message.error("Máy chủ lỗi!");
       console.error(error);
       setIsLoading(false);
       closeModal();
@@ -64,7 +64,7 @@ function ModalCreateCourse() {
             <Divider />
             <Button
               loading={isLoading}
-              disabled={!enableCreate || isLoading}
+              disabled={!enableCreate}
               key="link"
               type="primary"
               onClick={handleOk}

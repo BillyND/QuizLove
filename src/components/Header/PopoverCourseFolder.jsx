@@ -5,24 +5,46 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { Popover } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useModal } from "../../utils/useModal";
 import ModalCreateCourse from "./ModalCourseFolder/ModalCreateCourse";
 import { windowWidth } from "../../utils/constant";
+import {
+  createSubscription,
+  useSubscription,
+} from "../../utils/globalStateHook";
+
+export const modalCreateFolderSubs = createSubscription({
+  visible: false,
+});
+
+window.addEventListener("click", function (event) {
+  if (
+    !event.target.closest(".ant-popover-content") &&
+    !event.target.closest(".anticon-plus")
+  ) {
+    modalCreateFolderSubs.updateState({
+      visible: false,
+    });
+  }
+});
 
 function PopoverCourseFolder(props) {
   const { accessToken } = props;
   const { openModal } = useModal();
-  const [visible, setVisible] = useState(false);
+  const {
+    state: { visible },
+    setState: setVisible,
+  } = useSubscription(modalCreateFolderSubs, ["visible"]);
 
   const handleOpenModal = (key) => {
     openModal(key);
-    setVisible(false);
+    setVisible({ visible: false });
   };
 
   const activator = (
     <PlusOutlined
-      onClick={() => setVisible(!visible)}
+      onClick={() => setVisible({ visible: !visible })}
       className="icon-plus flex-center-all cursor-pointer transition-02"
       style={{
         display: windowWidth < 600 && !accessToken ? "none" : "",
@@ -32,13 +54,6 @@ function PopoverCourseFolder(props) {
 
   const contentCourseFolder = (
     <div className="popover-course-folder none-copy">
-      <div
-        className="item class"
-        onClick={() => handleOpenModal("MODAL_CREATE_CLASS")}
-      >
-        <HomeOutlined className="icon" />
-        Lớp
-      </div>
       <div className="item course">
         <CopyOutlined className="icon" />
         Học phần
@@ -49,6 +64,13 @@ function PopoverCourseFolder(props) {
       >
         <FolderOutlined className="icon" />
         Thư mục
+      </div>
+      <div
+        className="item class"
+        onClick={() => handleOpenModal("MODAL_CREATE_CLASS")}
+      >
+        <HomeOutlined className="icon" />
+        Lớp
       </div>
     </div>
   );

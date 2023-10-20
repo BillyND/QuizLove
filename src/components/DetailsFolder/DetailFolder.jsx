@@ -5,6 +5,8 @@ import { getFolderByCondition } from "../../services/api";
 import { useDebounce } from "../../utils/useDebounce";
 import "./DetailFolder.scss";
 import { Alert, Spin } from "antd";
+import { windowWidth } from "../../utils/constant";
+import { listRecent } from "../Home/HomeLogged";
 
 function DetailFolder(props) {
   const params = useParams();
@@ -29,10 +31,9 @@ function DetailFolder(props) {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     handleGetFolderByCondition();
   }, [debounceParams]);
-
-  console.log(">>>isLoading:", isLoading);
 
   if (isLoading) {
     return (
@@ -40,14 +41,11 @@ function DetailFolder(props) {
         <Alert
           message=""
           description=""
-          // type="info"
           style={{ height: "100vh", backgroundColor: "transparent" }}
         />
       </Spin>
     );
   }
-
-  // );
 
   return (
     <div className="container detail-folder-page ">
@@ -60,10 +58,44 @@ function DetailFolder(props) {
           <div className="name">name</div>
         </div>
       </div>
-      <span className="title-detail-page">
+      <span className="title-detail-page mt-3">
         <FolderOutlined className="icon-title-detail-page" />
         <span className="name-folder">{folder?.name}</span>
       </span>
+      <div className="description ms-1">{folder?.description}</div>
+
+      <div className="content-detail-page pt-5">
+        <div className="list-recent hidden-scrollbar">
+          {listRecent?.map((item, index) => {
+            if (windowWidth < 600 && index > 1) return;
+            return (
+              <div
+                key={item?.name + index}
+                className="item shadow-card cursor-pointer"
+              >
+                <header>
+                  <span className="title">{item?.title}</span>
+                  <div className="assembly">{item?.assembly}</div>
+                </header>
+
+                <footer>
+                  <div
+                    className="thumbnail"
+                    style={{
+                      backgroundImage: `url('${item?.thumbnail}')`,
+                    }}
+                  ></div>
+
+                  <span>{item?.name}</span>
+
+                  <div className="assembly">{item?.role}</div>
+                </footer>
+                <span className="line-footer transition-02"></span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

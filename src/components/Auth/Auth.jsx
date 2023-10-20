@@ -10,7 +10,7 @@ function Auth() {
   const navigate = useNavigate();
   const {
     state: { type },
-  } = useSubscription(toggleAuthModalSubs);
+  } = useSubscription(toggleAuthModalSubs, ["type"]);
 
   const handleCloseModalLogin = () => {
     navigate("/");

@@ -12,6 +12,7 @@ import PopoverCourseFolder from "./PopoverCourseFolder";
 import { getTriggerToken } from "../../services/api";
 import { useParams } from "react-router-dom";
 import { useDebounce } from "../../utils/useDebounce";
+import PopoverLibrary from "./PopoverLibrary";
 
 let pathnameNow = window.location?.pathname?.replace(/\//g, "");
 
@@ -47,7 +48,7 @@ function Header() {
   const { setState } = useSubscription(toggleAuthModalSubs);
   const {
     state: { accessToken },
-  } = useSubscription(infoUserSubs);
+  } = useSubscription(infoUserSubs, ["accessToken"]);
   const pathname = window.location?.pathname?.replace(/\//g, "");
   const debouncePathName = useDebounce(pathname, 10);
 
@@ -107,11 +108,17 @@ function Header() {
                 </div>
               </button>
 
-              <PopoverSubjects
-                locationNow={locationNow}
-                handleMoveLocation={handleMoveLocation}
-              />
-
+              {accessToken ? (
+                <PopoverLibrary
+                  locationNow={locationNow}
+                  handleMoveLocation={handleMoveLocation}
+                />
+              ) : (
+                <PopoverSubjects
+                  locationNow={locationNow}
+                  handleMoveLocation={handleMoveLocation}
+                />
+              )}
               <button className="item cursor-pointer remove-style-button">
                 <div
                   className="text"
