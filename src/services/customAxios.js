@@ -1,6 +1,5 @@
 import axios from "axios";
-const baseURL = "https://quiz-love-be.vercel.app/";
-// const baseURL = "http://127.0.0.1:8080/";
+const baseURL = import.meta.env.VITE_BACKEND_URL_DEPLOY;
 const NO_RETRY_HEADER = "x-no-retry";
 
 let instance = axios.create({

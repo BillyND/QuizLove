@@ -36,7 +36,7 @@ export const infoUserSubs = createSubscription({
 export const handleApplyInfoUserToSubs = () => {
   try {
     const infoUser = JSON.parse(localStorage.getItem("infoUser"));
-    infoUserSubs.updateState(infoUser);
+    infoUser && infoUserSubs.updateState(infoUser);
   } catch (error) {
     console.error(error);
   }
