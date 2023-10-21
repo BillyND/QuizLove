@@ -11,17 +11,16 @@ import { infoUserSubs } from "./Header";
 
 function PopoverInfoUser(props) {
   const {
-    state: { email, username },
+    state: { email, username, avatar },
     setState,
-  } = useSubscription(infoUserSubs, ["email", "username"]);
+  } = useSubscription(infoUserSubs, ["email", "username", "avatar"]);
   const [isLoading, setIsLoading] = useState(false);
 
   const activator = (
     <div
       className="icon-avatar-user-header flex-center-all cursor-pointer transition-02"
       style={{
-        backgroundImage:
-          "url('https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png')",
+        backgroundImage: `url(${avatar})`,
       }}
     ></div>
   );

@@ -1,20 +1,23 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Popover, Tabs } from "antd";
-import React, { useState } from "react";
-import "./PopoverLibrary.scss";
+import { Popover, Skeleton, Tabs } from "antd";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { getFolderByCondition } from "../../services/api";
 import {
   createSubscription,
   useSubscription,
 } from "../../utils/globalStateHook";
+import SkeletonCustom from "../Loading/SkeletonCustom";
+import "./PopoverLibrary.scss";
 
 export const popoverLibSubscription = createSubscription({
   contentLib: [],
   loading: false,
+  visible: false,
 });
 
 const TabContent = () => {
-  const { setState } = useSubscription(popoverLibSubscription, ["contentLib"]);
+  const { setState } = useSubscription(popoverLibSubscription);
 
   const handleFetchContent = async (key) => {
     setState({ loading: true });
@@ -26,7 +29,7 @@ const TabContent = () => {
         setState({ contentLib: [] });
       }
       if (key === 3) {
-        const resFolder = await getFolderByCondition({});
+        const resFolder = await getFolderByCondition({ hasAuthorId: true });
         setState({ contentLib: resFolder?.data });
       }
       if (key === 4) {
@@ -55,55 +58,88 @@ const TabContent = () => {
       label: "Lớp học",
     },
   ];
-  return <Tabs items={items} onChange={handleFetchContent} />;
+  return (
+    <Tabs className="pt-3 px-3" items={items} onChange={handleFetchContent} />
+  );
 };
 
-const ContainerContent = () => {
-  const {
-    state: { contentLib },
-  } = useSubscription(popoverLibSubscription, ["contentLib"]);
+const ContainerContent = (props) => {
+  const { togglePopover } = props;
 
-  console.log(">>>contentLib:", contentLib);
+  const {
+    state: { contentLib, loading },
+  } = useSubscription(popoverLibSubscription, ["contentLib", "loading"]);
+  const navigate = useNavigate();
+
+  const handleSelectFolder = (item) => {
+    navigate(`/folders/${item?._id}`);
+    togglePopover();
+  };
+
   return (
-    <div>
-      {contentLib?.map((item) => {
-        return <div key={item?._id}>{item?.name}</div>;
-      })}
+    <div className="container-content-lib hidden-scrollbar">
+      <Skeleton className="p-3" loading={loading} active />
+      <>
+        {contentLib?.map((item) => {
+          return (
+            <div
+              key={item?._id}
+              className="item"
+              onClick={() => handleSelectFolder(item)}
+            >
+              <div className="content">
+                <div className="title"> {item?.name}</div>
+                <div className="length-course">
+                  {`${item?.source?.length || 0} học phần`}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </>
+      <div className="footer">
+        {/* <Divider /> */}
+        Footer
+      </div>
     </div>
   );
 };
 
-function PopoverLibrary(props) {
-  const { locationNow, handleMoveLocation } = props;
-  const [loading, setLoading] = useState(false);
-  const [tabActive, setTabActive] = useState(1);
+function PopoverLibrary() {
+  const {
+    state: { visible },
+    state,
+    setState,
+  } = useSubscription(popoverLibSubscription, ["visible"]);
+
+  const togglePopover = () => setState({ contentLib: [], visible: !visible });
 
   const activator = (
-    <button className="item cursor-pointer remove-style-button">
+    <button
+      onClick={togglePopover}
+      className="item cursor-pointer remove-style-button"
+    >
       <div className="text">
         Thư viện của bạn
         <CaretDownOutlined />
-        <span
-          className="line-footer-nav"
-          style={{
-            opacity: locationNow?.pathname?.includes("/subjects") ? "1" : "",
-          }}
-        />
+        <span className=" " />
       </div>
     </button>
   );
 
   const ContentPopoverLibrary = () => {
     return (
-      <div className="p-3 popover-library">
+      <div className="popover-library">
         <TabContent />
-        <ContainerContent />
+        <ContainerContent togglePopover={togglePopover} />
       </div>
     );
   };
 
   return (
     <Popover
+      onOpenChange={togglePopover}
+      open={visible}
       placement="bottomLeft"
       content={<ContentPopoverLibrary />}
       trigger="click"

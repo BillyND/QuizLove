@@ -1,6 +1,6 @@
 import { FolderOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFolderByCondition } from "../../services/api";
 import { useDebounce } from "../../utils/useDebounce";
 import "./DetailFolder.scss";
@@ -12,8 +12,8 @@ function DetailFolder(props) {
   const params = useParams();
   const folderId = params?.id;
   const [folder, setFolder] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const debounceParams = useDebounce(JSON.stringify(params), 100);
 
@@ -28,6 +28,10 @@ function DetailFolder(props) {
       console.error(error);
       setIsLoading(false);
     }
+  };
+
+  const handleMoveToUser = () => {
+    navigate(`/${folder?.author?.email}`);
   };
 
   useEffect(() => {
@@ -52,10 +56,13 @@ function DetailFolder(props) {
       <div className="header-detail-page">
         <span className="count-course">0 học phần</span>
 
-        <div className="author">
-          <div className="creator">Tạo bởi</div>
-          <div className="thumbnail"></div>
-          <div className="name">name</div>
+        <div className="author" onClick={handleMoveToUser}>
+          <div className="creator">tạo bởi</div>
+          <div
+            className="thumbnail"
+            style={{ backgroundImage: `url(${folder?.author?.avatar})` }}
+          ></div>
+          <div className="name">{folder?.author?.username}</div>
         </div>
       </div>
       <span className="title-detail-page mt-3">

@@ -12,15 +12,25 @@
   .header-detail-page {
     display: flex;
     gap: 32px;
+    font-size: 15px;
 
     .author {
       display: flex;
       gap: 10px;
+      cursor: pointer;
+
+      .creator {
+        color: rgb(90, 88, 88);
+      }
+
       .thumbnail {
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        background-color: gray;
+        border: 0.2px solid gray;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
   }

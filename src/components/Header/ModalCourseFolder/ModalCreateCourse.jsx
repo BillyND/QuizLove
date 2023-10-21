@@ -5,6 +5,7 @@ import { ContentFolder } from "./ContentFolder";
 import "./modalCourse.scss";
 import { createFolder } from "../../../services/api";
 import { useNavigate } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
 
 function ModalCreateCourse() {
   const {

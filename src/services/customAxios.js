@@ -2,8 +2,6 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 const NO_RETRY_HEADER = "x-no-retry";
 
-console.log(">>>baseURL:", baseURL);
-
 let instance = axios.create({
   baseURL: baseURL + "v1/api/",
 });
@@ -87,7 +85,7 @@ instance.interceptors.response.use(
       error.config.url === "/auth/refresh"
     ) {
       localStorage.removeItem("infoUser");
-      window.location.href = "/login";
+      // window.location.href = "/login";
     }
 
     return error?.response?.data ?? Promise.reject(error);

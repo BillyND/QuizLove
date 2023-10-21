@@ -45,14 +45,15 @@ export const createFolder = ({ name, description }) => {
 };
 
 export const getFolderByCondition = ({
-  folderId = null,
+  folderId = "",
+  hasAuthorId = false,
   isDeleted = false,
   isHidden = false,
   page = 1,
   limit = 100,
 }) => {
   return axios.get(
-    `folders?folderId=${folderId}&isDeleted=${isDeleted}&isHidden=${isHidden}&page=${page}&limit=${limit}`,
+    `folders?folderId=${folderId}&isDeleted=${isDeleted}&isHidden=${isHidden}&page=${page}&limit=${limit}&hasAuthorId=${hasAuthorId}`,
     tokenHeaders()
   );
 };

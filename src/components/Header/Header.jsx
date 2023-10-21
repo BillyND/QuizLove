@@ -23,14 +23,14 @@ export const toggleAuthModalSubs = createSubscription({
 });
 
 export const infoUserSubs = createSubscription({
-  email: "",
-  isAdmin: false,
-  username: "",
-  _id: "",
-  createdAt: "",
-  updatedAt: "",
-  accessToken: "",
-  refreshToken: "",
+  // email: "",
+  // isAdmin: false,
+  // username: "",
+  // _id: "",
+  // createdAt: "",
+  // updatedAt: "",
+  // accessToken: "",
+  // refreshToken: "",
 });
 
 export const handleApplyInfoUserToSubs = () => {
