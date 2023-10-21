@@ -7,7 +7,6 @@ import {
   createSubscription,
   useSubscription,
 } from "../../utils/globalStateHook";
-import SkeletonCustom from "../Loading/SkeletonCustom";
 import "./PopoverLibrary.scss";
 
 export const popoverLibSubscription = createSubscription({
