@@ -6,15 +6,47 @@ import {
 import { Divider, Popover, message } from "antd";
 import React, { useState } from "react";
 import { getTriggerToken, postLogout } from "../../services/api";
-import { useSubscription } from "../../utils/globalStateHook";
+import {
+  createSubscription,
+  useSubscription,
+} from "../../utils/globalStateHook";
 import { infoUserSubs } from "./Header";
+import { initInfoUser } from "../../utils/constant";
+
+export const popoverInfoUser = createSubscription({
+  isLoading: false,
+});
+
+const handleLogout = async () => {
+  getTriggerToken();
+  if (popoverInfoUser?.state?.isLoading) return;
+
+  popoverInfoUser.updateState({ isLoading: true });
+  try {
+    await postLogout();
+    popoverInfoUser.updateState({ isLoading: false });
+  } catch (error) {
+    popoverInfoUser.updateState({ isLoading: false });
+    console.error(error);
+  }
+
+  // Remove data user
+  localStorage.removeItem("infoUser");
+  infoUserSubs.updateState(initInfoUser);
+  getTriggerToken();
+};
 
 function PopoverInfoUser(props) {
   const {
     state: { email, username, avatar },
+    state,
     setState,
   } = useSubscription(infoUserSubs, ["email", "username", "avatar"]);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    state: { isLoading },
+  } = useSubscription(popoverInfoUser);
+
+  console.log(">>>state:", state);
 
   const activator = (
     <div
@@ -24,34 +56,6 @@ function PopoverInfoUser(props) {
       }}
     ></div>
   );
-
-  const handleLogout = async () => {
-    getTriggerToken();
-    if (isLoading) return;
-
-    setIsLoading(true);
-    try {
-      await postLogout();
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
-
-    // Remove data user
-    localStorage.removeItem("infoUser");
-    setState({
-      email: "",
-      isAdmin: false,
-      username: "",
-      _id: "",
-      createdAt: "",
-      updatedAt: "",
-      accessToken: "",
-      refreshToken: "",
-    });
-    getTriggerToken();
-  };
 
   const contentPopoverUser = (
     <div className="popover-info-user none-copy">

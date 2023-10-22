@@ -13,6 +13,7 @@ import { getTriggerToken } from "../../services/api";
 import { useParams } from "react-router-dom";
 import { useDebounce } from "../../utils/useDebounce";
 import PopoverLibrary from "./PopoverLibrary";
+import { initInfoUser } from "../../utils/constant";
 
 let pathnameNow = window.location?.pathname?.replace(/\//g, "");
 
@@ -22,16 +23,7 @@ export const toggleAuthModalSubs = createSubscription({
   type: pathnameNow,
 });
 
-export const infoUserSubs = createSubscription({
-  // email: "",
-  // isAdmin: false,
-  // username: "",
-  // _id: "",
-  // createdAt: "",
-  // updatedAt: "",
-  // accessToken: "",
-  // refreshToken: "",
-});
+export const infoUserSubs = createSubscription(initInfoUser);
 
 export const handleApplyInfoUserToSubs = () => {
   try {
@@ -45,11 +37,12 @@ export const handleApplyInfoUserToSubs = () => {
 function Header() {
   const navigate = useNavigate();
   const locationNow = useLocation();
+  const pathname = window.location?.pathname?.replace(/\//g, "");
+
   const { setState } = useSubscription(toggleAuthModalSubs);
   const {
     state: { accessToken },
   } = useSubscription(infoUserSubs, ["accessToken"]);
-  const pathname = window.location?.pathname?.replace(/\//g, "");
   const debouncePathName = useDebounce(pathname, 10);
 
   useEffect(() => {

@@ -8,6 +8,8 @@ import Explanations from "./components/Explanations/Explanations";
 import GoodbyePage from "./components/GoodbyePage/GoodbyePage";
 import Home from "./components/Home/Home";
 import UpgradePlan from "./components/UpdradePlan/UpgradePlan";
+import DetailUser from "./components/DetailUser/DetailUser";
+import CreateCourse from "./components/CreateCourse/CreateCourse";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/folders/:id" element={<DetailFolder />} />
+          <Route path="/:email/folders/:id" element={<DetailFolder />} />
+          <Route path="/:email" element={<DetailUser />} />
+          <Route path="/create-set" element={<CreateCourse />} />
           <Route path="/goodbye" element={<GoodbyePage />} />
           <Route path="/upgrade" element={<UpgradePlan />} />
           <Route path="/explanations" element={<Explanations />} />

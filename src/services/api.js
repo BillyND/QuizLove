@@ -1,3 +1,4 @@
+import { infoUserSubs } from "../components/Header/Header";
 import axios, { getAccessToken } from "./customAxios";
 
 // <=====Trigger header token=====> //
@@ -41,19 +42,19 @@ export const postLogout = () => {
 
 // <=====FOLDERS=====> //
 export const createFolder = ({ name, description }) => {
-  return axios.post("folders/create", { name, description }, tokenHeaders());
+  return axios.post("folders/", { name, description }, tokenHeaders());
 };
 
 export const getFolderByCondition = ({
   folderId = "",
-  hasAuthorId = false,
   isDeleted = false,
   isHidden = false,
   page = 1,
   limit = 100,
+  emailAuthor = infoUserSubs?.state?.email,
 }) => {
   return axios.get(
-    `folders?folderId=${folderId}&isDeleted=${isDeleted}&isHidden=${isHidden}&page=${page}&limit=${limit}&hasAuthorId=${hasAuthorId}`,
+    `folders?folderId=${folderId}&isDeleted=${isDeleted}&isHidden=${isHidden}&page=${page}&limit=${limit}&emailAuthor=${emailAuthor}`,
     tokenHeaders()
   );
 };

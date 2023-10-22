@@ -1,11 +1,11 @@
 import { Button, Divider, Modal, message } from "antd";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createFolder } from "../../../services/api";
 import { useModal } from "../../../utils/useModal";
 import { ContentFolder } from "./ContentFolder";
 import "./modalCourse.scss";
-import { createFolder } from "../../../services/api";
-import { useNavigate } from "react-router-dom";
-import { LoadingOutlined } from "@ant-design/icons";
+import { infoUserSubs } from "../Header";
 
 function ModalCreateCourse() {
   const {
@@ -34,7 +34,7 @@ function ModalCreateCourse() {
       const folderId = resInfoPost?.data?._id;
 
       if (resInfoPost?.EC === 0 && folderId) {
-        navigate(`/folders/${folderId}`);
+        navigate(`/${infoUserSubs?.state?.email}/folders/${folderId}`);
       } else {
         message.error("Tạo thư mục thất bại!");
       }
@@ -61,7 +61,7 @@ function ModalCreateCourse() {
         onCancel={handleCancel}
         style={{ top: window.innerWidth < 400 ? 50 : "" }}
         footer={[
-          <>
+          <Fragment key={1}>
             <Divider />
             <Button
               loading={isLoading}
@@ -75,7 +75,7 @@ function ModalCreateCourse() {
             >
               Tạo thư mục
             </Button>
-          </>,
+          </Fragment>,
         ]}
         width={800}
       >

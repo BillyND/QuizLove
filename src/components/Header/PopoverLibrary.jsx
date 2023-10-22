@@ -8,6 +8,7 @@ import {
   useSubscription,
 } from "../../utils/globalStateHook";
 import "./PopoverLibrary.scss";
+import { infoUserSubs } from "./Header";
 
 export const popoverLibSubscription = createSubscription({
   contentLib: [],
@@ -28,7 +29,10 @@ const TabContent = () => {
         setState({ contentLib: [] });
       }
       if (key === 3) {
-        const resFolder = await getFolderByCondition({ hasAuthorId: true });
+        const resFolder = await getFolderByCondition({
+          hasAuthorId: true,
+          limit: 20,
+        });
         setState({ contentLib: resFolder?.data });
       }
       if (key === 4) {
@@ -71,7 +75,7 @@ const ContainerContent = (props) => {
   const navigate = useNavigate();
 
   const handleSelectFolder = (item) => {
-    navigate(`/folders/${item?._id}`);
+    navigate(`/${infoUserSubs?.state?.email}/folders/${item?._id}`);
     togglePopover();
   };
 

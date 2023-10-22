@@ -11,9 +11,12 @@ import { listRecent } from "../Home/HomeLogged";
 function DetailFolder(props) {
   const params = useParams();
   const folderId = params?.id;
+  const emailAuthor = params?.email;
   const [folder, setFolder] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  console.log(">>>params:", params);
 
   const debounceParams = useDebounce(JSON.stringify(params), 100);
 
@@ -21,12 +24,19 @@ function DetailFolder(props) {
     setIsLoading(true);
     setFolder(null);
     try {
-      const resFolder = await getFolderByCondition({ folderId });
+      const resFolder = await getFolderByCondition({ folderId, emailAuthor });
+
+      if (!resFolder?.data?.[0] && params?.email) {
+        navigate(`/${params?.email}`);
+      }
       setFolder(resFolder?.data?.[0]);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
       setIsLoading(false);
+      if (params?.email) {
+        navigate(`/${params?.email}`);
+      }
     }
   };
 

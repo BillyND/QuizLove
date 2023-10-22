@@ -228,3 +228,14 @@ export const listNewFeature = [
     backgroundParent: "#fcf0ff",
   },
 ];
+
+export const initInfoUser = {
+  email: "",
+  isAdmin: false,
+  username: "",
+  _id: "",
+  createdAt: "",
+  updatedAt: "",
+  accessToken: "",
+  refreshToken: "",
+};

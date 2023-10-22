@@ -1,0 +1,97 @@
+.create-course-page {
+  .header-create-course {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title-create {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .button-create {
+    background-color: rgb(66, 85, 255);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    width: 57px;
+    height: 40px;
+  }
+
+  .button-create:disabled {
+    background-color: #d9dde8;
+  }
+
+  .content-create-course {
+    .input-info-course {
+      display: grid;
+      gap: 15px;
+      max-width: 50%;
+    }
+  }
+}
+
+.input-course {
+  display: grid;
+  gap: 5px;
+  input {
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: 300;
+    height: 40px;
+  }
+
+  input::placeholder {
+    color: #d1d1d1;
+    font-weight: 300;
+  }
+
+  .line-footer {
+    height: 2px;
+    background-color: black;
+    width: 100%;
+  }
+
+  .focus {
+    border: none;
+    background-color: #ffcd1f;
+    margin-top: -2px;
+    height: 4px;
+  }
+
+  .label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    .main-label {
+      cursor: pointer;
+    }
+
+    .sub-label {
+      color: #3ccfcf;
+      text-transform: uppercase;
+    }
+
+    .sub-label:hover {
+      color: #ffcd1f;
+    }
+
+    .main-label {
+      color: #939bb4;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .create-course-page {
+    .content-create-course {
+      .input-info-course {
+        max-width: 100%;
+      }
+    }
+  }
+}

@@ -5,14 +5,15 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { Popover } from "antd";
-import React, { useEffect, useState } from "react";
-import { useModal } from "../../utils/useModal";
-import ModalCreateCourse from "./ModalCourseFolder/ModalCreateCourse";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { windowWidth } from "../../utils/constant";
 import {
   createSubscription,
   useSubscription,
 } from "../../utils/globalStateHook";
+import { useModal } from "../../utils/useModal";
+import ModalCreateCourse from "./ModalCourseFolder/ModalCreateCourse";
 
 export const modalCreateFolderSubs = createSubscription({
   visible: false,
@@ -36,10 +37,28 @@ function PopoverCourseFolder(props) {
     state: { visible },
     setState: setVisible,
   } = useSubscription(modalCreateFolderSubs, ["visible"]);
+  const navigate = useNavigate();
+  const locationNow = useLocation();
+  const pathname = window.location?.pathname?.replace(/\//g, "");
 
-  const handleOpenModal = (key) => {
-    openModal(key);
-    setVisible({ visible: false });
+  const toggleVisiblePopover = () => {
+    setVisible({
+      visible: !visible,
+    });
+  };
+
+  const handleClickPopoverCreateData = ({ type, modal, route }) => {
+    toggleVisiblePopover();
+    if (!accessToken) {
+      navigate("/login");
+      return;
+    }
+
+    if (type === "modal") {
+      openModal(modal);
+    } else if (route !== pathname) {
+      navigate(`/${route}`);
+    }
   };
 
   const activator = (
@@ -54,20 +73,33 @@ function PopoverCourseFolder(props) {
 
   const contentCourseFolder = (
     <div className="popover-course-folder none-copy">
-      <div className="item course">
+      <div
+        className="item course"
+        onClick={() => handleClickPopoverCreateData({ route: "create-set" })}
+      >
         <CopyOutlined className="icon" />
         Học phần
       </div>
       <div
         className="item Folder"
-        onClick={() => handleOpenModal("MODAL_CREATE_FOLDER")}
+        onClick={() =>
+          handleClickPopoverCreateData({
+            type: "modal",
+            modal: "MODAL_CREATE_FOLDER",
+          })
+        }
       >
         <FolderOutlined className="icon" />
         Thư mục
       </div>
       <div
         className="item class"
-        onClick={() => handleOpenModal("MODAL_CREATE_CLASS")}
+        onClick={() =>
+          handleClickPopoverCreateData({
+            type: "modal",
+            modal: "MODAL_CREATE_CLASS",
+          })
+        }
       >
         <HomeOutlined className="icon" />
         Lớp
