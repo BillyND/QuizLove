@@ -3,15 +3,15 @@ import {
   SettingOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
-import { Divider, Popover, message } from "antd";
-import React, { useState } from "react";
+import { Divider, Popover } from "antd";
+import React from "react";
 import { getTriggerToken, postLogout } from "../../services/api";
+import { initInfoUser } from "../../utils/constant";
 import {
   createSubscription,
   useSubscription,
 } from "../../utils/globalStateHook";
 import { infoUserSubs } from "./Header";
-import { initInfoUser } from "../../utils/constant";
 
 export const popoverInfoUser = createSubscription({
   isLoading: false,
@@ -39,14 +39,10 @@ const handleLogout = async () => {
 function PopoverInfoUser(props) {
   const {
     state: { email, username, avatar },
-    state,
-    setState,
   } = useSubscription(infoUserSubs, ["email", "username", "avatar"]);
   const {
     state: { isLoading },
   } = useSubscription(popoverInfoUser);
-
-  console.log(">>>state:", state);
 
   const activator = (
     <div

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { listNewFeature, windowWidth } from "../../utils/constant";
+import { scrollTop } from "../../utils/scrollTop";
 
 export const listRecent = [
   {
@@ -101,6 +102,10 @@ const RecentSection = () => {
 };
 
 function HomeLogged(props) {
+  useEffect(() => {
+    scrollTop();
+  }, []);
+
   return (
     <div className="home-logged container">
       <NewFeature />

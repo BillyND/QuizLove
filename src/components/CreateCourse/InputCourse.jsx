@@ -1,9 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDebounce } from "../../utils/useDebounce";
+import { draftCourse } from "./CreateCourse";
 
 function InputCourse(props) {
-  const { placeHolder, titleMainLabel, titleSubLabel } = props;
+  const { type, placeHolder, titleMainLabel, titleSubLabel } = props;
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef(null);
+  const [localValue, setLocalValue] = useState(draftCourse?.state[type]);
+  const debounceLocalValue = useDebounce(localValue, 100);
+
+  useEffect(() => {
+    handleApplyChange();
+  }, [debounceLocalValue]);
+
+  const handleApplyChange = () => {
+    draftCourse.updateState({
+      ...draftCourse?.state,
+      [type]: localValue,
+    });
+  };
 
   const handleFocus = () => {
     setIsFocus(true);
@@ -18,7 +33,9 @@ function InputCourse(props) {
   return (
     <div className="input-course">
       <input
+        value={localValue}
         ref={inputRef}
+        onChange={(e) => setLocalValue(e.target.value)}
         placeholder={placeHolder}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -32,7 +49,7 @@ function InputCourse(props) {
           {titleMainLabel}
         </span>
         <span className="sub-label" onClick={handleClickSubLabel}>
-          ok2
+          {titleSubLabel}
         </span>
       </div>
     </div>

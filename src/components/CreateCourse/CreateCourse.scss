@@ -28,6 +28,36 @@
       gap: 15px;
       max-width: 50%;
     }
+
+    .question-create-course {
+      display: grid;
+      gap: 20px;
+
+      .card-question {
+        min-height: 50px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+        .header {
+          padding: 16px;
+          font-size: 16px;
+          font-weight: 700;
+          color: #939bb4;
+        }
+
+        .ant-divider {
+          margin: 0;
+        }
+
+        .content {
+          padding: 16px;
+          display: grid;
+          grid-template-columns: auto auto;
+          gap: 40px;
+        }
+      }
+    }
   }
 }
 
@@ -74,6 +104,7 @@
     .sub-label {
       color: #3ccfcf;
       text-transform: uppercase;
+      cursor: pointer;
     }
 
     .sub-label:hover {
