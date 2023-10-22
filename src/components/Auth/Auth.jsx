@@ -1,5 +1,5 @@
 import { CloseOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSubscription } from "../../utils/globalStateHook";
 import { FormLogin } from "./FormLogin";
 import FormRegister from "./FormRegister";
@@ -11,6 +11,8 @@ function Auth() {
   const {
     state: { type },
   } = useSubscription(toggleAuthModalSubs, ["type"]);
+
+  const [currentScrollHeight, setCurrentScrollHeight] = useState("");
 
   const handleCloseModalLogin = () => {
     navigate("/");
