@@ -8,30 +8,6 @@ export const initQuestion = [
     define: "",
     image: "",
   },
-  {
-    id: "",
-    terms: "",
-    define: "",
-    image: "",
-  },
-  {
-    id: "",
-    terms: "",
-    define: "",
-    image: "",
-  },
-  {
-    id: "",
-    terms: "",
-    define: "",
-    image: "",
-  },
-  {
-    id: "",
-    terms: "",
-    define: "",
-    image: "",
-  },
 ];
 
 export const ListQuestion = () => {

@@ -58,3 +58,12 @@ export const getFolderByCondition = ({
     tokenHeaders()
   );
 };
+
+// <=====COURSES=====> //
+export const updateDraftCourse = (draftCourse) => {
+  return axios.post("courses/draft", draftCourse, tokenHeaders());
+};
+
+export const getDraftCourse = () => {
+  return axios.get("courses/draft", tokenHeaders());
+};

@@ -1,23 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDebounce } from "../../utils/useDebounce";
-import { draftCourse } from "./CreateCourse";
+import React, { useRef, useState } from "react";
 
 function InputCourse(props) {
-  const { type, placeHolder, titleMainLabel, titleSubLabel } = props;
+  const { value, type, placeHolder, titleMainLabel, titleSubLabel, onChange } =
+    props;
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef(null);
-  const [localValue, setLocalValue] = useState(draftCourse?.state[type]);
-  const debounceLocalValue = useDebounce(localValue, 100);
 
-  useEffect(() => {
-    handleApplyChange();
-  }, [debounceLocalValue]);
-
-  const handleApplyChange = () => {
-    draftCourse.updateState({
-      ...draftCourse?.state,
-      [type]: localValue,
-    });
+  const handleApplyChange = (value) => {
+    if (typeof onChange === "function") {
+      onChange(type, value);
+    }
   };
 
   const handleFocus = () => {
@@ -33,9 +25,9 @@ function InputCourse(props) {
   return (
     <div className="input-course">
       <input
-        value={localValue}
+        value={value}
         ref={inputRef}
-        onChange={(e) => setLocalValue(e.target.value)}
+        onChange={(e) => handleApplyChange(e.target.value)}
         placeholder={placeHolder}
         onFocus={handleFocus}
         onBlur={handleBlur}
