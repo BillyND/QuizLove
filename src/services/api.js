@@ -67,3 +67,7 @@ export const updateDraftCourse = (draftCourse) => {
 export const getDraftCourse = () => {
   return axios.get("courses/draft", tokenHeaders());
 };
+
+export const createCourse = (data) => {
+  return axios.post("courses/", data, tokenHeaders());
+};

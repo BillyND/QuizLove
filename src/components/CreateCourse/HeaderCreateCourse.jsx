@@ -1,8 +1,12 @@
 import { Button } from "antd";
 import React, { useEffect } from "react";
-import { getDraftCourse, updateDraftCourse } from "../../services/api";
+import {
+  createCourse,
+  getDraftCourse,
+  updateDraftCourse,
+} from "../../services/api";
 import { useSubscription } from "../../utils/globalStateHook";
-import { draftCourse } from "./CreateCourse";
+import CreateCourse, { draftCourse } from "./CreateCourse";
 
 let timer;
 
@@ -38,8 +42,9 @@ const ButtonCreate = () => {
     }
   };
 
-  const handleCreateCourse = () => {
-    console.log(">>>course:", state);
+  const handleCreateCourse = async () => {
+    const resCreateCourse = await createCourse(state);
+    console.log(">>>resCreateCourse:", resCreateCourse);
   };
 
   return (

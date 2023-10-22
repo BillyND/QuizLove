@@ -4,8 +4,38 @@ import { CardQuestion } from "./CardQuestion";
 export const initQuestion = [
   {
     id: "",
-    terms: "",
-    define: "",
+    question: "",
+    answer: "",
+    image: "",
+  },
+  {
+    id: "",
+    question: "",
+    answer: "",
+    image: "",
+  },
+  {
+    id: "",
+    question: "",
+    answer: "",
+    image: "",
+  },
+  {
+    id: "",
+    question: "",
+    answer: "",
+    image: "",
+  },
+  {
+    id: "",
+    question: "",
+    answer: "",
+    image: "",
+  },
+  {
+    id: "",
+    question: "",
+    answer: "",
     image: "",
   },
 ];
