@@ -49,7 +49,7 @@
       }
 
       .icon:hover {
-        background-color: rgb(241, 241, 241);
+        background-color: rgb(234, 234, 234);
       }
     }
   }
@@ -71,6 +71,35 @@
       color: gray;
       font-size: 45px;
     }
+  }
+}
+
+.container-empty-folder {
+  padding-bottom: 50vh;
+
+  .header {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  .button-add-course {
+    margin-top: 15px !important;
+    margin: auto;
+    width: fit-content;
+    width: 148px;
+    height: 42px;
+    background-color: #3ccfcf;
+    color: #fff !important;
+    font-weight: 500;
+  }
+
+  .button-add-course:hover {
+    background-color: #3ab7b7;
   }
 }
 

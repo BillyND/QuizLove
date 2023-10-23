@@ -78,7 +78,7 @@ function Footer(props) {
         {/* Bottom right */}
         <div className="bottom-right">
           <img
-            src="https://assets.quizlet.com/a/j/dist/app/i/global/footer/coppa-seal.0efe00c12ef68aa.png"
+            src="https://cdn.shopify.com/s/files/1/0673/7366/2426/files/coppa-seal.0efe00c12ef68aa.png?v=1698080016"
             width="140"
             height="70"
             alt="COPPA Safe Harbor Certification seal"

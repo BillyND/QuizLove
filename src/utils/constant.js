@@ -205,7 +205,7 @@ export const listContentRight = [
 export const listNewFeature = [
   {
     image:
-      "https://assets.quizlet.com/a/j/dist/app/i/homepage/whats_new/search.644f93633253876.png",
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/search.644f93633253876.png?v=1698079823",
     title: "Tìm kiếm mạnh mẽ hơn",
     description: "Tìm thẻ ghi nhớ bạn cần để học về bất kỳ chủ đề nào",
     backgroundColor: "#a8b1ff",
@@ -213,7 +213,7 @@ export const listNewFeature = [
   },
   {
     image:
-      "https://assets.quizlet.com/a/j/dist/app/i/homepage/whats_new/learn.10aa37714383668.png",
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/learn.10aa37714383668.png?v=1698079835",
     title: "Cải thiện điểm số với chế độ Học",
     description: "Học với các câu hỏi hay hơn, kiểm soát nhiều hơn, và gợi ý",
     backgroundColor: "#FFDC62",
@@ -221,7 +221,7 @@ export const listNewFeature = [
   },
   {
     image:
-      "https://assets.quizlet.com/a/j/dist/app/i/homepage/whats_new/test.a8904e866eb65bd.svg",
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/test.a8904e866eb65bd.svg?v=1698079842",
     title: "Hãy sẵn sàng cho kỳ thi",
     description: "Kiểm tra với gợi ý và chỉ dẫn học được tăng cường AI",
     backgroundColor: "#EEAAFF",

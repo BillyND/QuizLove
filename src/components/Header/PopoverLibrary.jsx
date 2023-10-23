@@ -46,11 +46,12 @@ const TabContent = () => {
   const items = [
     {
       key: 1,
-      label: "Học phần",
+
+      label: "Lớp học",
     },
     {
       key: 2,
-      label: "Lời giải chuyên gia",
+      label: "Học phần",
     },
     {
       key: 3,
@@ -58,7 +59,7 @@ const TabContent = () => {
     },
     {
       key: 4,
-      label: "Lớp học",
+      label: "Lời giải chuyên gia",
     },
   ];
   return (

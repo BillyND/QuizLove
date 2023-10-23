@@ -6,21 +6,24 @@ export const listRecent = [
   {
     title: "title 1",
     assembly: "36 thuật ngữ",
-    thumbnail: "https://graph.facebook.com/1476086985906797/picture?type=large",
+    thumbnail:
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/unnamed.jpg?v=1698080081",
     name: "name user",
     role: "Giáo viên",
   },
   {
     title: "title 1",
     assembly: "36 thuật ngữ",
-    thumbnail: "https://graph.facebook.com/1476086985906797/picture?type=large",
+    thumbnail:
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/unnamed.jpg?v=1698080081",
     name: "name user",
     role: "Giáo viên",
   },
   {
     title: "title 1",
     assembly: "36 thuật ngữ",
-    thumbnail: "https://graph.facebook.com/1476086985906797/picture?type=large",
+    thumbnail:
+      "https://cdn.shopify.com/s/files/1/0673/7366/2426/files/unnamed.jpg?v=1698080081",
     name: "name user",
     role: "Giáo viên",
   },

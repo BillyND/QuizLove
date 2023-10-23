@@ -4,7 +4,7 @@ import {
   PlusOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import SkeletonInput from "antd/es/skeleton/Input";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,6 +13,14 @@ import { windowWidth } from "../../utils/constant";
 import { useDebounce } from "../../utils/useDebounce";
 import { listRecent } from "../Home/HomeLogged";
 import "./DetailFolder.scss";
+import {
+  createSubscription,
+  useSubscription,
+} from "../../utils/globalStateHook";
+
+export const detailFolderSubscription = createSubscription({
+  listCourse: [],
+});
 
 const SkeletonDetailFolder = () => {
   return (
@@ -23,6 +31,69 @@ const SkeletonDetailFolder = () => {
       <SkeletonInput active className="pt-4" />
       <Skeleton active className="pt-5" />
       <Skeleton active className="pt-5" />
+    </div>
+  );
+};
+
+const EmptyDetailFolder = () => {
+  return (
+    <div className="container-empty-folder d-grid align-items-center w-100 gap-2">
+      <div className="header mx-auto">Thư mục này chưa có học phần</div>
+      <div className="description mx-auto">
+        Sắp xếp mọi học phần của bạn theo thư mục.
+      </div>
+      <Button className="button-add-course">Thêm học phần</Button>
+    </div>
+  );
+};
+
+const ContentDetailFolder = () => {
+  const {
+    state: { listCourse },
+  } = useSubscription(detailFolderSubscription);
+
+  if (!listCourse?.length) return <EmptyDetailFolder />;
+
+  return (
+    <>
+      {listCourse?.map((item, index) => {
+        if (windowWidth < 600 && index > 1) return;
+        return (
+          <div
+            key={item?.name + index}
+            className="item shadow-card cursor-pointer"
+          >
+            <header>
+              <span className="title">{item?.title}</span>
+              <div className="assembly">{item?.assembly}</div>
+            </header>
+
+            <footer>
+              <div
+                className="thumbnail"
+                style={{
+                  backgroundImage: `url('${item?.thumbnail}')`,
+                }}
+              ></div>
+
+              <span>{item?.name}</span>
+
+              <div className="assembly">{item?.role}</div>
+            </footer>
+            <span className="line-footer transition-02"></span>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const HeaderControl = () => {
+  return (
+    <div className="group-icon-detail-folder d-flex gap-3">
+      <PlusOutlined className="icon" />
+      <UploadOutlined className="icon" />
+      <DashOutlined className="icon" />
     </div>
   );
 };
@@ -84,11 +155,8 @@ function DetailFolder(props) {
             <div className="name">{folder?.author?.username}</div>
           </div>
         </div>
-        <div className="group-icon-detail-folder d-flex gap-3">
-          <PlusOutlined className="icon" />
-          <UploadOutlined className="icon" />
-          <DashOutlined className="icon" />
-        </div>
+
+        <HeaderControl />
       </div>
       <span className="title-detail-page mt-3">
         <FolderOutlined className="icon-title-detail-page" />
@@ -98,34 +166,7 @@ function DetailFolder(props) {
 
       <div className="content-detail-page pt-5">
         <div className="list-recent hidden-scrollbar">
-          {listRecent?.map((item, index) => {
-            if (windowWidth < 600 && index > 1) return;
-            return (
-              <div
-                key={item?.name + index}
-                className="item shadow-card cursor-pointer"
-              >
-                <header>
-                  <span className="title">{item?.title}</span>
-                  <div className="assembly">{item?.assembly}</div>
-                </header>
-
-                <footer>
-                  <div
-                    className="thumbnail"
-                    style={{
-                      backgroundImage: `url('${item?.thumbnail}')`,
-                    }}
-                  ></div>
-
-                  <span>{item?.name}</span>
-
-                  <div className="assembly">{item?.role}</div>
-                </footer>
-                <span className="line-footer transition-02"></span>
-              </div>
-            );
-          })}
+          <ContentDetailFolder />
         </div>
       </div>
     </div>
