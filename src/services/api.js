@@ -68,6 +68,10 @@ export const getDraftCourse = () => {
   return axios.get("courses/draft", tokenHeaders());
 };
 
+export const deleteCourse = () => {
+  return axios.delete("courses/draft", tokenHeaders());
+};
+
 export const createCourse = (data) => {
-  return axios.post("courses/", data, tokenHeaders());
+  return axios.post("courses", data, tokenHeaders());
 };

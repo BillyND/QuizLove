@@ -1,7 +1,8 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import React, { useEffect } from "react";
 import {
   createCourse,
+  deleteCourse,
   getDraftCourse,
   updateDraftCourse,
 } from "../../services/api";
@@ -14,9 +15,7 @@ export const handlePostDraftCourse = async (dataProps) => {
   clearTimeout(timer);
 
   timer = setTimeout(async () => {
-    if (dataProps.title !== undefined && dataProps.description !== undefined) {
-      await updateDraftCourse(dataProps);
-    }
+    await updateDraftCourse(dataProps);
   }, 500);
 };
 
@@ -44,7 +43,16 @@ const ButtonCreate = () => {
 
   const handleCreateCourse = async () => {
     const resCreateCourse = await createCourse(state);
-    console.log(">>>resCreateCourse:", resCreateCourse);
+    if (resCreateCourse?.EC === 0) {
+      message.success("Tạo khoá học thành công!");
+
+      const resDeleteDraftCourse = await deleteCourse();
+      draftCourse.updateState({
+        title: "",
+        description: "",
+        questions: [],
+      });
+    }
   };
 
   return (

@@ -36,6 +36,8 @@ export const CardQuestion = (props) => {
       ...state,
       questions: tempQuestions,
     };
+
+    console.log(">>>dataPost:", dataPost);
     handlePostDraftCourse(dataPost);
   };
 
