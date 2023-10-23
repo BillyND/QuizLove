@@ -1,68 +1,76 @@
 import { Button, message } from "antd";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   createCourse,
   deleteCourse,
-  getDraftCourse,
   updateDraftCourse,
 } from "../../services/api";
 import { useSubscription } from "../../utils/globalStateHook";
-import CreateCourse, { draftCourse } from "./CreateCourse";
+import { draftCourse } from "./CreateCourse";
+import { initQuestion, minimumQuestionsSatisfied } from "./ListQuestion";
 
-let timer;
+let timerPost;
 
-export const handlePostDraftCourse = async (dataProps) => {
-  clearTimeout(timer);
+export const handlePostDraftCourse = async (dataPost, isDeleteQuestion) => {
+  clearTimeout(timerPost);
 
-  timer = setTimeout(async () => {
-    await updateDraftCourse(dataProps);
-  }, 500);
+  timerPost = setTimeout(async () => {
+    !isDeleteQuestion && draftCourse.updateState(dataPost);
+    await updateDraftCourse(dataPost);
+  }, 300);
 };
 
 const ButtonCreate = () => {
   const {
     state: { title },
     state,
+    setState,
   } = useSubscription(draftCourse);
-
-  useEffect(() => {
-    handleGetDraftCourse();
-  }, []);
-
-  const handleGetDraftCourse = async () => {
-    const resGetDraftCourse = await getDraftCourse();
-
-    if (resGetDraftCourse?.data?.[0]) {
-      draftCourse.updateState({
-        title: resGetDraftCourse?.data?.[0]?.title,
-        description: resGetDraftCourse?.data?.[0]?.description,
-        questions: resGetDraftCourse?.data?.[0]?.questions,
-      });
-    }
-  };
+  const [loading, setLoading] = useState();
 
   const handleCreateCourse = async () => {
-    const resCreateCourse = await createCourse(state);
-    if (resCreateCourse?.EC === 0) {
-      message.success("Tạo khoá học thành công!");
+    try {
+      const isSatisfiedQuestions = minimumQuestionsSatisfied(
+        state?.questions,
+        1
+      );
 
-      const resDeleteDraftCourse = await deleteCourse();
-      draftCourse.updateState({
-        title: "",
-        description: "",
-        questions: [],
-      });
+      if (!isSatisfiedQuestions) {
+        message.error("Tối thiểu 2 câu hỏi!");
+        return;
+      }
+
+      setLoading(true);
+
+      const resCreateCourse = await createCourse(state);
+      if (resCreateCourse?.EC === 0) {
+        draftCourse.updateState({
+          title: "",
+          description: "",
+          questions: [],
+        });
+
+        message.success("Tạo khoá học thành công!");
+
+        deleteCourse();
+
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
     }
   };
 
   return (
     <Button
+      loading={loading}
       onClick={handleCreateCourse}
       disabled={!title?.trim()}
       className="button-create"
       type="primary"
     >
-      Tạo
+      {!loading && "Tạo"}
     </Button>
   );
 };

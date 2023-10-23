@@ -9,31 +9,36 @@ import InputCourse from "./InputCourse";
 function TitleDescriptionCourse() {
   const {
     state: { title, description },
-    state,
-  } = useSubscription(draftCourse);
+  } = useSubscription(draftCourse, ["title", "description"]);
 
   const [titleDescription, setTitleDescription] = useState(null);
   const debounceTitleDescription = useDebounce(
     JSON.stringify(title + description),
-    100
+    50
   );
 
   useEffect(() => {
-    setTitleDescription({ title, description });
+    if (
+      titleDescription?.title !== title ||
+      titleDescription?.description !== description
+    ) {
+      setTitleDescription({ title, description });
+    }
   }, [debounceTitleDescription]);
 
   const handleChangeTitleDescription = (type, value) => {
-    setTitleDescription({ ...titleDescription, [type]: value || "" });
-
     let newTitleDescription = { ...titleDescription, [type]: value || "" };
 
     const dataPost = {
-      ...state,
+      ...draftCourse?.state,
       ...newTitleDescription,
     };
 
-    handlePostDraftCourse(dataPost);
+    setTitleDescription(newTitleDescription);
+
+    handlePostDraftCourse(dataPost, false);
   };
+
   return (
     <div className="input-info-course">
       <InputCourse

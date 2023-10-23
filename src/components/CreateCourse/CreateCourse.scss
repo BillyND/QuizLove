@@ -56,6 +56,19 @@
           grid-template-columns: auto auto;
           gap: 40px;
         }
+
+        .icon-control {
+          .icon-delete {
+            color: black;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+          }
+
+          .icon-delete:hover {
+            color: #ffce1f;
+          }
+        }
       }
     }
   }
@@ -114,6 +127,23 @@
     .main-label {
       color: #939bb4;
     }
+  }
+}
+
+.card-add-new-question {
+  height: 118px;
+  font-weight: 700;
+
+  .content-add-question {
+    border-bottom: 4px solid #3ccfcf;
+    padding: 10px 0;
+    padding-right: 7px;
+    cursor: pointer;
+  }
+
+  .content-add-question:hover {
+    border-bottom: 4px solid #ffcd1f;
+    color: #ffcd1f;
   }
 }
 

@@ -5,9 +5,27 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+.disabled-button {
+  color: gray !important;
+  cursor: no-drop !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
+}
+
+.screen-loading-spinner {
+  scale: 3;
+  opacity: 1;
+  background-color: rgba(111, 110, 110, 0.224);
+  transition: 0.1s;
+  position: fixed;
+  z-index: 20;
+  top: 64px !important;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /* Track */

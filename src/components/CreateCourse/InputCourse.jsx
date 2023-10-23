@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
 
 function InputCourse(props) {
-  const { value, type, placeHolder, titleMainLabel, titleSubLabel, onChange } =
-    props;
+  const {
+    value = "",
+    type,
+    placeHolder,
+    titleMainLabel,
+    titleSubLabel,
+    onChange,
+  } = props;
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef(null);
 

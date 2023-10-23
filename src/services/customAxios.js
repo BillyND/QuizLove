@@ -1,6 +1,16 @@
 import axios from "axios";
+import asyncWait from "../utils/asysnWait";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 const NO_RETRY_HEADER = "x-no-retry";
+
+const isLocalApi =
+  baseURL?.includes("127.0.0.1") || baseURL?.includes("localhost");
+
+const handleDelayApiLocal = async () => {
+  if (isLocalApi) {
+    await asyncWait(600);
+  }
+};
 
 let instance = axios.create({
   baseURL: baseURL + "v1/api/",
@@ -46,8 +56,10 @@ instance.interceptors.request.use(
 
 // Add a response interceptor
 instance.interceptors.response.use(
-  function (response) {
+  async function (response) {
     setAccessToken();
+
+    await handleDelayApiLocal();
 
     return response && response.data ? response.data : response;
   },
@@ -87,6 +99,8 @@ instance.interceptors.response.use(
       localStorage.removeItem("infoUser");
       // window.location.href = "/login";
     }
+
+    await handleDelayApiLocal();
 
     return error?.response?.data ?? Promise.reject(error);
   }

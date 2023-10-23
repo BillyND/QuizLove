@@ -1,60 +1,92 @@
-import { Divider } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Divider, Tooltip } from "antd";
+import { cloneDeep } from "lodash";
 import { useEffect, useState } from "react";
 import { useSubscription } from "../../utils/globalStateHook";
-import { useDebounce } from "../../utils/useDebounce";
 import { draftCourse } from "./CreateCourse";
 import { handlePostDraftCourse } from "./HeaderCreateCourse";
 import InputCourse from "./InputCourse";
+import { useDebounce } from "../../utils/useDebounce";
 
 let tempQuestions = [];
 
 export const CardQuestion = (props) => {
-  const { index } = props;
   const {
-    state: { questions },
+    index,
     state,
-  } = useSubscription(draftCourse);
-  const [questionAnswer, setQuestionAnswer] = useState(null);
-  const debounceQuestionAnswer = useDebounce(questions?.[index], 100);
+    enableDelete,
+    question,
+    setListQuestion,
+    listQuestion,
+  } = props;
+  const [questionAnswer, setQuestionAnswer] = useState(question);
+  const debounceQuestion = useDebounce(JSON.stringify(question), 10);
 
   useEffect(() => {
-    setQuestionAnswer(questions?.[index]);
-  }, [debounceQuestionAnswer]);
+    setQuestionAnswer(question);
+  }, [debounceQuestion]);
 
   const handleChangeQuestionAnswer = (type, value) => {
     setQuestionAnswer({ ...questionAnswer, [type]: value });
     let newQuestionAnswer = { ...questionAnswer, [type]: value };
 
-    tempQuestions = questions;
+    tempQuestions = listQuestion;
     tempQuestions[index] = newQuestionAnswer;
-    tempQuestions = tempQuestions?.filter((item) => {
-      if (item?.question?.trim() || item?.answer?.trim()) {
-        return item;
-      }
-    });
+
     const dataPost = {
       ...state,
       questions: tempQuestions,
     };
 
-    console.log(">>>dataPost:", dataPost);
-    handlePostDraftCourse(dataPost);
+    handlePostDraftCourse(dataPost, false);
+  };
+
+  const handleDeleteQuestion = (index) => {
+    if (!enableDelete) return;
+
+    const cloneQuestion = cloneDeep(listQuestion)?.filter(
+      (item, idx) => idx !== index
+    );
+
+    const dataPost = {
+      ...state,
+      questions: cloneQuestion,
+    };
+
+    setListQuestion(cloneQuestion);
+
+    handlePostDraftCourse(dataPost, false);
   };
 
   return (
     <div className="card-question">
-      <div className="header">{index}</div>
+      <div className="header d-flex justify-content-between align-items-center">
+        {index + 1}
+
+        <div
+          className={`remove-style-button icon-control`}
+          onClick={() => handleDeleteQuestion(index)}
+        >
+          <Tooltip placement="bottom" title={"Xoá thẻ này"}>
+            <DeleteOutlined
+              className={`icon-delete ${
+                !enableDelete ? "disabled-button" : ""
+              }`}
+            />
+          </Tooltip>
+        </div>
+      </div>
       <Divider />
       <div className="content">
         <InputCourse
-          value={questionAnswer?.question}
+          value={questionAnswer?.question || ""}
           type="question"
           onChange={handleChangeQuestionAnswer}
           titleMainLabel="Thuật ngữ"
           titleSubLabel="Chọn ngôn ngữ"
         />
         <InputCourse
-          value={questionAnswer?.answer}
+          value={questionAnswer?.answer || ""}
           type="answer"
           onChange={handleChangeQuestionAnswer}
           titleMainLabel="Định nghĩa"

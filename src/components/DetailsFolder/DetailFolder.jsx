@@ -1,12 +1,26 @@
 import { FolderOutlined } from "@ant-design/icons";
+import { Skeleton } from "antd";
+import SkeletonInput from "antd/es/skeleton/Input";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFolderByCondition } from "../../services/api";
-import { useDebounce } from "../../utils/useDebounce";
-import "./DetailFolder.scss";
-import { Alert, Spin } from "antd";
 import { windowWidth } from "../../utils/constant";
+import { useDebounce } from "../../utils/useDebounce";
 import { listRecent } from "../Home/HomeLogged";
+import "./DetailFolder.scss";
+
+const SkeletonDetailFolder = () => {
+  return (
+    <div className="container pt-5 d-grid">
+      <div className="d-flex gap-3">
+        <SkeletonInput active /> <SkeletonInput active />
+      </div>
+      <SkeletonInput active className="pt-4" />
+      <Skeleton active className="pt-5" />
+      <Skeleton active className="pt-5" />
+    </div>
+  );
+};
 
 function DetailFolder(props) {
   const params = useParams();
@@ -15,8 +29,6 @@ function DetailFolder(props) {
   const [folder, setFolder] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
-  console.log(">>>params:", params);
 
   const debounceParams = useDebounce(JSON.stringify(params), 100);
 
@@ -50,15 +62,7 @@ function DetailFolder(props) {
   }, [debounceParams]);
 
   if (isLoading) {
-    return (
-      <Spin size="large">
-        <Alert
-          message=""
-          description=""
-          style={{ height: "100vh", backgroundColor: "transparent" }}
-        />
-      </Spin>
-    );
+    return <SkeletonDetailFolder />;
   }
 
   return (
