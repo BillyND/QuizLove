@@ -1,4 +1,9 @@
-import { FolderOutlined } from "@ant-design/icons";
+import {
+  DashOutlined,
+  FolderOutlined,
+  PlusOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import { Skeleton } from "antd";
 import SkeletonInput from "antd/es/skeleton/Input";
 import React, { useEffect, useState } from "react";
@@ -66,17 +71,23 @@ function DetailFolder(props) {
   }
 
   return (
-    <div className="container detail-folder-page ">
-      <div className="header-detail-page">
-        <span className="count-course">0 học phần</span>
-
-        <div className="author" onClick={handleMoveToUser}>
-          <div className="creator">tạo bởi</div>
-          <div
-            className="thumbnail"
-            style={{ backgroundImage: `url(${folder?.author?.avatar})` }}
-          ></div>
-          <div className="name">{folder?.author?.username}</div>
+    <div className="container detail-folder-page none-copy">
+      <div className="header-detail-page justify-content-between">
+        <div className="header-detail-page">
+          <span className="count-course">0 học phần</span>
+          <div className="author" onClick={handleMoveToUser}>
+            <div className="creator">tạo bởi</div>
+            <div
+              className="thumbnail"
+              style={{ backgroundImage: `url(${folder?.author?.avatar})` }}
+            ></div>
+            <div className="name">{folder?.author?.username}</div>
+          </div>
+        </div>
+        <div className="group-icon-detail-folder d-flex gap-3">
+          <PlusOutlined className="icon" />
+          <UploadOutlined className="icon" />
+          <DashOutlined className="icon" />
         </div>
       </div>
       <span className="title-detail-page mt-3">

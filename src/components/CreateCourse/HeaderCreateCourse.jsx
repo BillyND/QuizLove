@@ -7,7 +7,7 @@ import {
 } from "../../services/api";
 import { useSubscription } from "../../utils/globalStateHook";
 import { draftCourse } from "./CreateCourse";
-import { initQuestion, minimumQuestionsSatisfied } from "./ListQuestion";
+import { minimumQuestionsSatisfied } from "./ListQuestion";
 
 let timerPost;
 
@@ -27,6 +27,10 @@ const ButtonCreate = () => {
     setState,
   } = useSubscription(draftCourse);
   const [loading, setLoading] = useState();
+
+  // useEffect(() => {
+  //   handleGetDraftCourse();
+  // }, []);
 
   const handleCreateCourse = async () => {
     try {

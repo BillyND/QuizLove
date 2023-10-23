@@ -33,6 +33,25 @@
         background-repeat: no-repeat;
       }
     }
+
+    .group-icon-detail-folder {
+      .icon {
+        transition: 0.2s;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid rgb(221, 221, 221);
+        font-size: 20px;
+      }
+
+      .icon:hover {
+        background-color: rgb(241, 241, 241);
+      }
+    }
   }
 
   .title-detail-page {

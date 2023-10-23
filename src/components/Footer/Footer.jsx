@@ -7,22 +7,23 @@ export const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
 });
 
+export const handleGetDraftCourse = async () => {
+  const resGetDraftCourse = await getDraftCourse();
+
+  if (resGetDraftCourse?.data?.[0]) {
+    draftCourse.updateState({
+      title: resGetDraftCourse?.data?.[0]?.title,
+      description: resGetDraftCourse?.data?.[0]?.description,
+      questions: resGetDraftCourse?.data?.[0]?.questions,
+    });
+  }
+};
+
 function Footer(props) {
   useEffect(() => {
     handleGetDraftCourse();
   }, []);
 
-  const handleGetDraftCourse = async () => {
-    const resGetDraftCourse = await getDraftCourse();
-
-    if (resGetDraftCourse?.data?.[0]) {
-      draftCourse.updateState({
-        title: resGetDraftCourse?.data?.[0]?.title,
-        description: resGetDraftCourse?.data?.[0]?.description,
-        questions: resGetDraftCourse?.data?.[0]?.questions,
-      });
-    }
-  };
   return (
     <footer className="footer-quiz-love none-copy container">
       {/* Top */}

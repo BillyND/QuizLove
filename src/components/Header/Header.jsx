@@ -107,27 +107,31 @@ function Header() {
                   handleMoveLocation={handleMoveLocation}
                 />
               ) : (
-                <PopoverSubjects
-                  locationNow={locationNow}
-                  handleMoveLocation={handleMoveLocation}
-                />
-              )}
-              <button className="item cursor-pointer remove-style-button">
-                <div
-                  className="text"
-                  onClick={() => handleMoveLocation("/explanations")}
-                >
-                  Lời giải chuyên gia
-                  <span
-                    className="line-footer-nav"
-                    style={{
-                      opacity: locationNow?.pathname?.includes("/explanations")
-                        ? "1"
-                        : "",
-                    }}
+                <>
+                  <PopoverSubjects
+                    locationNow={locationNow}
+                    handleMoveLocation={handleMoveLocation}
                   />
-                </div>
-              </button>
+                  <button className="item cursor-pointer remove-style-button">
+                    <div
+                      className="text"
+                      onClick={() => handleMoveLocation("/explanations")}
+                    >
+                      Lời giải chuyên gia
+                      <span
+                        className="line-footer-nav"
+                        style={{
+                          opacity: locationNow?.pathname?.includes(
+                            "/explanations"
+                          )
+                            ? "1"
+                            : "",
+                        }}
+                      />
+                    </div>
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
