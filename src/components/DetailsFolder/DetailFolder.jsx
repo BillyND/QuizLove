@@ -10,13 +10,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFolderByCondition } from "../../services/api";
 import { windowWidth } from "../../utils/constant";
-import { useDebounce } from "../../utils/useDebounce";
-import { listRecent } from "../Home/HomeLogged";
-import "./DetailFolder.scss";
 import {
   createSubscription,
   useSubscription,
 } from "../../utils/globalStateHook";
+import { useDebounce } from "../../utils/useDebounce";
+import "./DetailFolder.scss";
 
 export const detailFolderSubscription = createSubscription({
   listCourse: [],

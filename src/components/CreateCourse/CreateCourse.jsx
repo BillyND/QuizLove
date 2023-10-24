@@ -6,6 +6,7 @@ import "./CreateCourse.scss";
 import HeaderCreateCourse from "./HeaderCreateCourse";
 import { ListQuestion } from "./ListQuestion";
 import TitleDescriptionCourse from "./TitleDescriptionCourse";
+import PopupLeft from "./PopupLeft";
 
 export const draftCourse = createSubscription({});
 
@@ -32,6 +33,8 @@ const CreateCourse = () => {
 
         <ListQuestion />
       </div>
+
+      <PopupLeft />
     </div>
   );
 };
