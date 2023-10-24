@@ -6,7 +6,7 @@ import { useSubscription } from "../../utils/globalStateHook";
 import { useDebounce } from "../../utils/useDebounce";
 import { handleDeleteDraftCourse } from "./HeaderCreateCourse";
 
-const handleShowPopup = () => {
+const handleShowPopupDraft = () => {
   const elementPopup = document.querySelector(".pop-up-left");
 
   setTimeout(() => {
@@ -16,7 +16,7 @@ const handleShowPopup = () => {
   }, 200);
 };
 
-const handleClosePopup = () => {
+export const handleClosePopupDraft = () => {
   const elementPopup = document.querySelector(".pop-up-left");
   setTimeout(() => {
     if (elementPopup) {
@@ -28,7 +28,7 @@ const handleClosePopup = () => {
 
 const handleDeleteDraft = () => {
   handleDeleteDraftCourse();
-  handleClosePopup();
+  handleClosePopupDraft();
 };
 
 function PopupLeft(props) {
@@ -40,7 +40,7 @@ function PopupLeft(props) {
   const debounceIsOpenPopupLeft = useDebounce(isOpenPopupLeft, 300);
 
   useEffect(() => {
-    isOpenPopupLeft && handleShowPopup();
+    isOpenPopupLeft && handleShowPopupDraft();
   }, [debounceIsOpenPopupLeft]);
 
   return (
@@ -50,7 +50,7 @@ function PopupLeft(props) {
         <div className="delete-draft" onClick={handleDeleteDraft}>
           Xoá bản nháp
         </div>
-        <div className="close-pop-up" onClick={handleClosePopup}>
+        <div className="close-pop-up" onClick={handleClosePopupDraft}>
           Đóng
         </div>
       </div>

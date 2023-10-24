@@ -8,6 +8,7 @@ import {
 import { useSubscription } from "../../utils/globalStateHook";
 import { draftCourse } from "./CreateCourse";
 import { minimumQuestionsSatisfied } from "./ListQuestion";
+import { handleClosePopupDraft } from "./PopupLeft";
 
 let timerPost;
 
@@ -21,7 +22,6 @@ export const handlePostDraftCourse = async (dataPost, isDeleteQuestion) => {
 };
 
 export const handleDeleteDraftCourse = () => {
-  console.log(">>>here");
   draftCourse.updateState({
     title: "",
     description: "",
@@ -56,7 +56,7 @@ const ButtonCreate = () => {
       if (resCreateCourse?.EC === 0) {
         handleDeleteDraftCourse();
         message.success("Tạo khoá học thành công!");
-
+        handleClosePopupDraft();
         setLoading(false);
       }
     } catch (error) {

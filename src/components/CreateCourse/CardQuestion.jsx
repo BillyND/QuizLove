@@ -2,11 +2,9 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Divider, Tooltip } from "antd";
 import { cloneDeep } from "lodash";
 import { useEffect, useState } from "react";
-import { useSubscription } from "../../utils/globalStateHook";
-import { draftCourse } from "./CreateCourse";
+import { useDebounce } from "../../utils/useDebounce";
 import { handlePostDraftCourse } from "./HeaderCreateCourse";
 import InputCourse from "./InputCourse";
-import { useDebounce } from "../../utils/useDebounce";
 
 let tempQuestions = [];
 

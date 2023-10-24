@@ -5,8 +5,8 @@ import { createSubscription } from "../../utils/globalStateHook";
 import "./CreateCourse.scss";
 import HeaderCreateCourse from "./HeaderCreateCourse";
 import { ListQuestion } from "./ListQuestion";
-import TitleDescriptionCourse from "./TitleDescriptionCourse";
 import PopupLeft from "./PopupLeft";
+import TitleDescriptionCourse from "./TitleDescriptionCourse";
 
 export const draftCourse = createSubscription({});
 
