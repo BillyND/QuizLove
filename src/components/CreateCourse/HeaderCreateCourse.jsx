@@ -20,6 +20,16 @@ export const handlePostDraftCourse = async (dataPost, isDeleteQuestion) => {
   }, 300);
 };
 
+export const handleDeleteDraftCourse = () => {
+  console.log(">>>here");
+  draftCourse.updateState({
+    title: "",
+    description: "",
+    questions: [],
+  });
+  deleteCourse();
+};
+
 const ButtonCreate = () => {
   const {
     state: { title },
@@ -27,10 +37,6 @@ const ButtonCreate = () => {
     setState,
   } = useSubscription(draftCourse);
   const [loading, setLoading] = useState();
-
-  // useEffect(() => {
-  //   handleGetDraftCourse();
-  // }, []);
 
   const handleCreateCourse = async () => {
     try {
@@ -48,15 +54,8 @@ const ButtonCreate = () => {
 
       const resCreateCourse = await createCourse(state);
       if (resCreateCourse?.EC === 0) {
-        draftCourse.updateState({
-          title: "",
-          description: "",
-          questions: [],
-        });
-
+        handleDeleteDraftCourse();
         message.success("Tạo khoá học thành công!");
-
-        deleteCourse();
 
         setLoading(false);
       }
