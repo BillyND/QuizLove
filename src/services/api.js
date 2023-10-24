@@ -48,13 +48,12 @@ export const createFolder = ({ name, description }) => {
 export const getFolderByCondition = ({
   folderId = "",
   isDeleted = false,
-  isHidden = false,
   page = 1,
   limit = 100,
   emailAuthor = infoUserSubs?.state?.email,
 }) => {
   return axios.get(
-    `folders?folderId=${folderId}&isDeleted=${isDeleted}&isHidden=${isHidden}&page=${page}&limit=${limit}&emailAuthor=${emailAuthor}`,
+    `folders?folderId=${folderId}&isDeleted=${isDeleted}&page=${page}&limit=${limit}&emailAuthor=${emailAuthor}`,
     tokenHeaders()
   );
 };
@@ -62,6 +61,19 @@ export const getFolderByCondition = ({
 // <=====COURSES=====> //
 export const updateDraftCourse = (draftCourse) => {
   return axios.post("courses/draft", draftCourse, tokenHeaders());
+};
+
+export const getCourseByCondition = ({
+  courseId = "",
+  isDeleted = false,
+  page = 1,
+  limit = 100,
+  emailAuthor = infoUserSubs?.state?.email,
+}) => {
+  return axios.get(
+    `courses?folderId=${courseId}&isDeleted=${isDeleted}&page=${page}&limit=${limit}&emailAuthor=${emailAuthor}`,
+    tokenHeaders()
+  );
 };
 
 export const getDraftCourse = () => {

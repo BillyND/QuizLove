@@ -4,7 +4,7 @@ import {
   PlusOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { Button, Skeleton } from "antd";
+import { Button, Modal, Skeleton } from "antd";
 import SkeletonInput from "antd/es/skeleton/Input";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,10 +16,67 @@ import {
 } from "../../utils/globalStateHook";
 import { useDebounce } from "../../utils/useDebounce";
 import "./DetailFolder.scss";
+import { debounce } from "lodash";
 
 export const detailFolderSubscription = createSubscription({
   listCourse: [],
 });
+
+export const modalSubscription = createSubscription({});
+
+export const handleOpenModalAddCourse = debounce(() => {
+  modalSubscription.updateState({
+    ...modalSubscription?.state,
+    MODAL_ADD_COURSE: true,
+  });
+}, 100);
+
+export const ModalAddCourse = () => {
+  const {
+    state: { MODAL_ADD_COURSE },
+    state,
+    setState,
+  } = useSubscription(modalSubscription, ["MODAL_ADD_COURSE"]);
+
+  const handleCloseModal = () => {
+    setState({
+      ...state,
+      MODAL_ADD_COURSE: false,
+    });
+  };
+
+  const handleOk = () => {};
+
+  return (
+    <Modal
+      title={
+        <h1
+          style={{
+            backgroundColor: "#4255ff",
+            position: "absolute",
+            insetInline: "0",
+            insetBlockStart: "0",
+            padding: "32px",
+            fontSize: "30px",
+            fontWeight: "700",
+            color: "#fff",
+          }}
+        >
+          Thêm học phần
+        </h1>
+      }
+      open={MODAL_ADD_COURSE}
+      onOk={handleOk}
+      onCancel={handleCloseModal}
+    >
+      <div style={{ paddingBlockStart: "90px" }}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </div>
+    </Modal>
+  );
+};
 
 const SkeletonDetailFolder = () => {
   return (
@@ -41,7 +98,9 @@ const EmptyDetailFolder = () => {
       <div className="description mx-auto">
         Sắp xếp mọi học phần của bạn theo thư mục.
       </div>
-      <Button className="button-add-course">Thêm học phần</Button>
+      <Button className="button-add-course" onClick={handleOpenModalAddCourse}>
+        Thêm học phần
+      </Button>
     </div>
   );
 };
@@ -90,7 +149,7 @@ const ContentDetailFolder = () => {
 const HeaderControl = () => {
   return (
     <div className="group-icon-detail-folder d-flex gap-3">
-      <PlusOutlined className="icon" />
+      <PlusOutlined className="icon" onClick={handleOpenModalAddCourse} />
       <UploadOutlined className="icon" />
       <DashOutlined className="icon" />
     </div>
@@ -142,6 +201,7 @@ function DetailFolder(props) {
 
   return (
     <div className="container detail-folder-page none-copy">
+      <ModalAddCourse />
       <div className="header-detail-page justify-content-between">
         <div className="header-detail-page">
           <span className="count-course">0 học phần</span>

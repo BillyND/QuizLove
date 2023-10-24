@@ -10,6 +10,7 @@ import Home from "./components/Home/Home";
 import UpgradePlan from "./components/UpdradePlan/UpgradePlan";
 import DetailUser from "./components/DetailUser/DetailUser";
 import CreateCourse from "./components/CreateCourse/CreateCourse";
+import DetailCourse from "./components/DetailCourse/DetailCourse";
 
 function App() {
   return (
@@ -17,7 +18,10 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+
+          {/* Detail route */}
           <Route path="/:email/folders/:id" element={<DetailFolder />} />
+          <Route path="/:email/courses/:id" element={<DetailCourse />} />
           <Route path="/:email" element={<DetailUser />} />
           <Route path="/create-set" element={<CreateCourse />} />
           <Route path="/goodbye" element={<GoodbyePage />} />

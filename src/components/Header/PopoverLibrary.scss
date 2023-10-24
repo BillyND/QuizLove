@@ -30,6 +30,10 @@
         .title {
           font-weight: 800;
           font-size: 15px;
+          max-width: 388px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .length-course {

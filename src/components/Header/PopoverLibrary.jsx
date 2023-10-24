@@ -2,7 +2,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Popover, Skeleton, Tabs } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { getFolderByCondition } from "../../services/api";
+import { getCourseByCondition, getFolderByCondition } from "../../services/api";
 import {
   createSubscription,
   useSubscription,
@@ -14,28 +14,35 @@ export const popoverLibSubscription = createSubscription({
   contentLib: [],
   loading: false,
   visible: false,
+  type: null,
 });
 
 const TabContent = () => {
-  const { setState } = useSubscription(popoverLibSubscription);
+  const {
+    state: { type },
+    setState,
+  } = useSubscription(popoverLibSubscription);
 
   const handleFetchContent = async (key) => {
     setState({ loading: true });
+    setState({ contentLib: [] });
     try {
-      if (key === 1) {
-        setState({ contentLib: [] });
+      if (key === "classes") {
+        setState({ contentLib: [], type: key });
       }
-      if (key === 2) {
-        setState({ contentLib: [] });
-      }
-      if (key === 3) {
-        const resFolder = await getFolderByCondition({
-          hasAuthorId: true,
+      if (key === "courses") {
+        const resFolder = await getCourseByCondition({
           limit: 20,
         });
-        setState({ contentLib: resFolder?.data });
+        setState({ contentLib: resFolder?.data, type: key });
       }
-      if (key === 4) {
+      if (key === "folders") {
+        const resFolder = await getFolderByCondition({
+          limit: 20,
+        });
+        setState({ contentLib: resFolder?.data, type: key });
+      }
+      if (key === "answers") {
         setState({ contentLib: [] });
       }
       setState({ loading: false });
@@ -45,20 +52,20 @@ const TabContent = () => {
   };
   const items = [
     {
-      key: 1,
+      key: "classes",
 
       label: "Lớp học",
     },
     {
-      key: 2,
+      key: "courses",
       label: "Học phần",
     },
     {
-      key: 3,
+      key: "folders",
       label: "Thư mục",
     },
     {
-      key: 4,
+      key: "answers",
       label: "Lời giải chuyên gia",
     },
   ];
@@ -71,12 +78,12 @@ const ContainerContent = (props) => {
   const { togglePopover } = props;
 
   const {
-    state: { contentLib, loading },
+    state: { contentLib, loading, type },
   } = useSubscription(popoverLibSubscription, ["contentLib", "loading"]);
   const navigate = useNavigate();
 
   const handleSelectFolder = (item) => {
-    navigate(`/${infoUserSubs?.state?.email}/folders/${item?._id}`);
+    navigate(`/${infoUserSubs?.state?.email}/${type}/${item?._id}`);
     togglePopover();
   };
 
@@ -91,10 +98,23 @@ const ContainerContent = (props) => {
               className="item"
               onClick={() => handleSelectFolder(item)}
             >
-              <div className="content">
-                <div className="title"> {item?.name}</div>
+              <div className="content gap-1">
+                <div className="title"> {item?.name || item?.title}</div>
                 <div className="length-course">
-                  {`${item?.source?.length || 0} học phần`}
+                  {type === "courses" ? (
+                    <div className="d-flex gap-2 align-items-center">
+                      <img
+                        width={15}
+                        height={15}
+                        src={item?.author?.avatar}
+                      ></img>
+                      <div>{item?.author?.username}</div>
+                    </div>
+                  ) : type === "folders" ? (
+                    `${item?.source?.length || 0} học phần`
+                  ) : (
+                    "other"
+                  )}
                 </div>
               </div>
             </div>
