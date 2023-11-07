@@ -40,8 +40,6 @@ export const CardQuestion = (props) => {
   };
 
   const handleDeleteQuestion = (index) => {
-    if (!enableDelete) return;
-
     const cloneQuestion = cloneDeep(listQuestion)?.filter(
       (item, idx) => idx !== index
     );
@@ -66,11 +64,7 @@ export const CardQuestion = (props) => {
           onClick={() => handleDeleteQuestion(index)}
         >
           <Tooltip placement="bottom" title={"Xoá thẻ này"}>
-            <DeleteOutlined
-              className={`icon-delete ${
-                !enableDelete ? "disabled-button" : ""
-              }`}
-            />
+            <DeleteOutlined className={`icon-delete`} />
           </Tooltip>
         </div>
       </div>

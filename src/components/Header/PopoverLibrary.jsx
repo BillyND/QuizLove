@@ -132,7 +132,6 @@ const ContainerContent = (props) => {
 function PopoverLibrary() {
   const {
     state: { visible },
-    state,
     setState,
   } = useSubscription(popoverLibSubscription, ["visible"]);
 

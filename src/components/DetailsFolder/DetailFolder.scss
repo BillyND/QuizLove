@@ -74,6 +74,32 @@
   }
 }
 
+.modal-show-course {
+  .ant-modal-content {
+    background-color: rgb(245, 245, 245);
+  }
+}
+
+.add-course {
+  background-color: #fff;
+  height: 83px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+
+  .button {
+    border-bottom: 3px solid #3ccfcf;
+    padding-bottom: 7px;
+    padding-right: 2px;
+  }
+
+  .button:hover {
+    color: #ffce1f;
+    border-bottom: 3px solid #ffce1f;
+  }
+}
+
 .container-empty-folder {
   padding-bottom: 50vh;
 
@@ -101,6 +127,21 @@
   .button-add-course:hover {
     background-color: #3ab7b7;
   }
+}
+
+.title-modal-show-course {
+  background-color: #4255ff;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  padding: 32px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.item-course {
+  word-break: break-all;
 }
 
 @media only screen and (max-width: 991px) {
